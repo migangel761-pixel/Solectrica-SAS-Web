@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #1E1B39;
+  --color-gold: #DFBD21;
+  --color-gold-d: #B89A10;
+  --color-lavender: #CFCFDB;
+  --color-off-white: #F5F4F2;
+  --color-footer-bg: #14122A;
+  
+  --font-sans: "Barlow", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Barlow Condensed", sans-serif;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;600;700&family=Barlow+Condensed:wght@700&display=swap');
+
+@layer base {
+  body {
+    @apply font-sans text-[#2A2737] bg-off-white antialiased overflow-x-hidden;
+  }
+  
+  h1, h2, h3 {
+    @apply font-display font-bold uppercase tracking-tight;
+  }
+}
+
+.grid-lines {
+  background-image: linear-gradient(rgba(207, 207, 219, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(207, 207, 219, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.glow-radial {
+  background: radial-gradient(circle at top right, rgba(223, 189, 33, 0.12) 0%, transparent 70%);
+}
+
+.vertical-lines {
+  background-image: repeating-linear-gradient(90deg, rgba(223, 189, 33, 0.03) 0px, rgba(223, 189, 33, 0.03) 1px, transparent 1px, transparent 20px);
+}
+
+.glass {
+  @apply bg-white/10 backdrop-blur-md border border-white/20;
+}
+
+.glass-dark {
+  @apply bg-navy/40 backdrop-blur-xl border border-white/10;
+}
+
+.text-gradient-gold {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-gold via-[#F7E08B] to-gold-d;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.parallax-bg {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-navy;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gold rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gold-d;
+}

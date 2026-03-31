@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soléctrica S.A.S. - Ingeniería Energética</title>
+    <meta name="description" content="Transformamos la energía en ventaja competitiva para las empresas colombianas. Control inteligente, infraestructura y generación sostenible.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;600;700&family=Barlow+Condensed:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#1E1B39',
+                        gold: '#DFBD21',
+                        'gold-d': '#B89A10',
+                        lavender: '#CFCFDB',
+                        'off-white': '#F5F4F2',
+                        'footer-bg': '#14122A',
+                    },
+                    fontFamily: {
+                        sans: ['Barlow', 'sans-serif'],
+                        display: ['Barlow Condensed', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Barlow', sans-serif;
+            color: #2A2737;
+            background-color: #F5F4F2;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .grid-lines {
+            background-image: linear-gradient(rgba(207, 207, 219, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(207, 207, 219, 0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .vertical-lines {
+            background-image: repeating-linear-gradient(90deg, rgba(223, 189, 33, 0.03) 0px, rgba(223, 189, 33, 0.03) 1px, transparent 1px, transparent 20px);
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .glass-dark {
+            background: rgba(30, 27, 57, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .text-gradient-gold {
+            background: linear-gradient(to right, #DFBD21, #F7E08B, #B89A10);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1E1B39;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #DFBD21;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #B89A10;
+        }
+
+        /* Reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile menu transition */
+        #mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out;
+            opacity: 0;
+        }
+        #mobile-menu.open {
+            max-height: 600px;
+            opacity: 1;
+        }
+
+        /* Dropdown transition */
+        #solutions-dropdown {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+        .group:hover #solutions-dropdown {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-bounce-custom {
+            animation: bounce 2s infinite;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-1 bg-gold z-[60] transition-all duration-100" style="width: 0%"></div>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 h-[80px] bg-transparent">
+        <div class="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
+            <a href="#inicio" class="flex items-center gap-2">
+                <span class="font-display text-2xl font-bold text-white tracking-tighter">
+                    SOL<span class="text-gold">É</span>CTRICA
+                </span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="#inicio" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Inicio</a>
+                <a href="#nosotros" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Sobre Nosotros</a>
+                
+                <div class="relative group">
+                    <button class="flex items-center gap-1 text-lavender hover:text-gold text-sm font-medium transition-colors py-4">
+                        Soluciones <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                    </button>
+                    <!-- Dropdown -->
+                    <div id="solutions-dropdown" class="absolute top-full left-0 w-64 bg-white shadow-xl rounded-b-lg overflow-hidden py-2">
+                        <a href="#soluciones" class="block px-4 py-3 hover:bg-off-white transition-colors">
+                            <div class="text-navy font-bold text-sm flex items-center gap-2">
+                                <span class="text-gold">◆</span> Herramienta (Jessy)
+                            </div>
+                            <div class="text-gray-500 text-xs mt-1">Monitoreo IoT + IA</div>
+                        </a>
+                        <a href="#soluciones" class="block px-4 py-3 hover:bg-off-white transition-colors">
+                            <div class="text-navy font-bold text-sm flex items-center gap-2">
+                                <span class="text-gold">◆</span> Infraestructura
+                            </div>
+                            <div class="text-gray-500 text-xs mt-1">Diseño y construcción</div>
+                        </a>
+                        <a href="#soluciones" class="block px-4 py-3 hover:bg-off-white transition-colors">
+                            <div class="text-navy font-bold text-sm flex items-center gap-2">
+                                <span class="text-gold">◆</span> Generación
+                            </div>
+                            <div class="text-gray-500 text-xs mt-1">Energía renovable</div>
+                        </a>
+                    </div>
+                </div>
+
+                <a href="#blog" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Blog</a>
+                <a href="#contacto" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Contacto</a>
+                
+                <a href="#contacto" class="bg-gold hover:bg-gold-d text-navy px-6 py-2 rounded-sm text-sm font-bold uppercase tracking-wider transition-all">
+                    Diagnóstico gratuito
+                </a>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button id="menu-toggle" class="lg:hidden text-white">
+                <i data-lucide="menu" id="menu-icon"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden bg-navy border-t border-white/10">
+            <div class="px-6 py-8 flex flex-col gap-6">
+                <a href="#inicio" class="mobile-link text-white text-lg font-medium">Inicio</a>
+                <a href="#nosotros" class="mobile-link text-white text-lg font-medium">Sobre Nosotros</a>
+                <div>
+                    <span class="text-white text-lg font-medium">Soluciones</span>
+                    <div class="mt-4 ml-4 flex flex-col gap-3">
+                        <a href="#soluciones" class="mobile-link text-lavender text-sm">◆ Herramienta (Jessy)</a>
+                        <a href="#soluciones" class="mobile-link text-lavender text-sm">◆ Infraestructura</a>
+                        <a href="#soluciones" class="mobile-link text-lavender text-sm">◆ Generación</a>
+                    </div>
+                </div>
+                <a href="#blog" class="mobile-link text-white text-lg font-medium">Blog</a>
+                <a href="#contacto" class="mobile-link text-white text-lg font-medium">Contacto</a>
+                <a href="#contacto" class="mobile-link bg-gold text-navy text-center py-3 rounded-sm font-bold uppercase tracking-wider">
+                    Diagnóstico gratuito
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="relative min-h-screen flex flex-col justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-cover bg-center parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&q=80&w=1920'); filter: brightness(0.3);"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-navy/80 via-navy/40 to-navy"></div>
+            <div class="absolute inset-0 grid-lines opacity-10"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-10 w-full">
+            <div class="reveal inline-block glass px-4 py-1 rounded-full mb-8">
+                <div class="text-gold font-bold text-[10px] uppercase tracking-[0.3em]">
+                    Ingeniería energética · Colombia
+                </div>
+            </div>
+
+            <h1 class="reveal text-white text-6xl md:text-8xl lg:text-9xl max-w-5xl leading-[0.95] mb-8 font-display font-black">
+                Energía que <span class="text-gradient-gold">impulsa</span> su futuro
+            </h1>
+
+            <p class="reveal text-lavender/80 text-xl md:text-2xl font-light max-w-2xl leading-relaxed mb-12">
+                Transformamos el gasto energético en una ventaja competitiva real. Control inteligente, infraestructura de clase mundial y generación sostenible.
+            </p>
+
+            <div class="reveal flex flex-col sm:flex-row gap-6 mb-24">
+                <a href="#contacto" class="bg-gold hover:bg-white text-navy px-10 py-5 rounded-full font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-3 shadow-[0_0_20px_rgba(223,189,33,0.3)] hover:shadow-[0_0_30px_rgba(223,189,33,0.5)] group">
+                    Solicitar diagnóstico <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-2 transition-transform"></i>
+                </a>
+                <a href="#soluciones" class="glass hover:bg-white/20 text-white px-10 py-5 rounded-full font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-3">
+                    Ver soluciones
+                </a>
+            </div>
+
+            <div class="reveal grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16">
+                <div>
+                    <div class="text-white text-4xl md:text-6xl font-display font-black mb-1 counter" data-target="48">0</div>
+                    <div class="text-gold/60 text-[10px] font-bold uppercase tracking-widest text-white">Respuesta (h)</div>
+                </div>
+                <div>
+                    <div class="text-white text-4xl md:text-6xl font-display font-black mb-1 counter" data-target="30">0</div>
+                    <div class="text-gold/60 text-[10px] font-bold uppercase tracking-widest text-white">Ahorro (%)</div>
+                </div>
+                <div>
+                    <div class="text-white text-4xl md:text-6xl font-display font-black mb-1 counter" data-target="100">0</div>
+                    <div class="text-gold/60 text-[10px] font-bold uppercase tracking-widest text-white">Garantía (%)</div>
+                </div>
+                <div>
+                    <div class="text-white text-4xl md:text-6xl font-display font-black mb-1 counter" data-target="0">0</div>
+                    <div class="text-gold/60 text-[10px] font-bold uppercase tracking-widest text-white">Inversión inicial ($)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce-custom text-white/20 hidden md:block">
+            <i data-lucide="chevron-down" class="w-8 h-8"></i>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="py-24 bg-off-white">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            <div class="lg:col-span-5">
+                <h2 class="reveal text-navy text-4xl md:text-5xl leading-tight">
+                    Cada mes que una empresa no optimiza su energía, <span class="text-gold-d">pierde dinero.</span> Silenciosamente. Sin saberlo.
+                </h2>
+            </div>
+            <div class="lg:col-span-7 space-y-6 text-gray-600 text-lg font-light leading-relaxed reveal">
+                <p>
+                    El mercado energético colombiano es complejo, técnico y opaco. Pocas empresas entienden cómo funciona realmente su tarifa, cuándo pueden acceder al mercado no regulado, qué incentivos tributarios existen para sus inversiones, o cómo un sistema de monitoreo puede revelar pérdidas invisibles en su operación.
+                </p>
+                <p>
+                    El resultado son millones de pesos que se van en ineficiencias que nunca se miden, en contratos que nunca se negocian y en oportunidades de generación que nunca se estructuran.
+                </p>
+                <p class="font-medium text-navy">
+                    A ese problema, Soléctrica le responde con tres cosas concretas: una herramienta, un servicio y una oportunidad.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section id="soluciones" class="py-32 bg-navy relative">
+        <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-off-white to-transparent opacity-5"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="mb-20 text-center">
+                <div class="reveal text-gold text-xs font-bold uppercase tracking-[0.3em] mb-4">Nuestras Soluciones</div>
+                <h2 class="reveal text-white text-5xl md:text-6xl mb-6">Tres naturalezas de <span class="text-gradient-gold">crear valor</span></h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="reveal glass-dark rounded-2xl overflow-hidden group hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] transition-all duration-500 flex flex-col h-full">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800" alt="Control" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy to-transparent opacity-60"></div>
+                        <div class="absolute top-4 left-4 glass px-3 py-1 rounded-full text-[10px] font-bold text-gold uppercase tracking-widest">Una Herramienta</div>
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col">
+                        <h3 class="text-white text-2xl mb-4 group-hover:text-gold transition-colors">Controla tu energía</h3>
+                        <p class="text-lavender/60 text-sm leading-relaxed mb-6 flex-1">Le damos el poder de conocer, monitorear y decidir sobre su consumo en tiempo real. A través de tecnología IoT, inteligencia de datos y acceso al mercado energético.</p>
+                        <div class="border-l-2 border-gold pl-4 py-1 mb-8 italic text-lavender/90 text-sm">"Información real. Control real. Decisiones reales."</div>
+                        <a href="#contacto" class="text-gold text-xs font-bold uppercase tracking-widest flex items-center gap-2 group-hover:gap-4 transition-all">Ver solución <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="reveal glass-dark rounded-2xl overflow-hidden group hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] transition-all duration-500 flex flex-col h-full">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&q=80&w=800" alt="Infraestructura" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy to-transparent opacity-60"></div>
+                        <div class="absolute top-4 left-4 glass px-3 py-1 rounded-full text-[10px] font-bold text-gold uppercase tracking-widest">Un Servicio</div>
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col">
+                        <h3 class="text-white text-2xl mb-4 group-hover:text-gold transition-colors">Infraestructura Eléctrica</h3>
+                        <p class="text-lavender/60 text-sm leading-relaxed mb-6 flex-1">Diseñamos, construimos y mantenemos la infraestructura eléctrica de empresas, industrias y proyectos de construcción. Personal certificado, cumplimiento RETIE.</p>
+                        <div class="border-l-2 border-gold pl-4 py-1 mb-8 italic text-lavender/90 text-sm">"Su infraestructura, bien hecha desde el principio."</div>
+                        <a href="#contacto" class="text-gold text-xs font-bold uppercase tracking-widest flex items-center gap-2 group-hover:gap-4 transition-all">Ver solución <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="reveal glass-dark rounded-2xl overflow-hidden group hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] transition-all duration-500 flex flex-col h-full">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&q=80&w=800" alt="Generación" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy to-transparent opacity-60"></div>
+                        <div class="absolute top-4 left-4 glass px-3 py-1 rounded-full text-[10px] font-bold text-gold uppercase tracking-widest">Una Oportunidad</div>
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col">
+                        <h3 class="text-white text-2xl mb-4 group-hover:text-gold transition-colors">Generación e Inversión</h3>
+                        <p class="text-lavender/60 text-sm leading-relaxed mb-6 flex-1">Estructuramos proyectos de generación solar y renovables para empresas e inversionistas que quieren producir energía y reducir su dependencia de la red.</p>
+                        <div class="border-l-2 border-gold pl-4 py-1 mb-8 italic text-lavender/90 text-sm">"Invierta en energía. Reciba retornos mes a mes."</div>
+                        <a href="#contacto" class="text-gold text-xs font-bold uppercase tracking-widest flex items-center gap-2 group-hover:gap-4 transition-all">Ver solución <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhoFor Section -->
+    <section id="nosotros" class="py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="max-w-3xl mb-20">
+                <div class="reveal text-gold-d text-xs font-bold uppercase tracking-[0.3em] mb-4">Para quién somos</div>
+                <h2 class="reveal text-navy text-4xl md:text-5xl mb-6">Soléctrica no es para todo el mundo. <span class="text-gold-d">Y eso es intencional.</span></h2>
+                <p class="reveal text-gray-500 text-lg font-light">Somos para empresas y personas que toman decisiones con criterio, que entienden el valor de invertir bien y que buscan aliados estratégicos.</p>
+            </div>
+
+            <div class="grid grid-cols-1 gap-8">
+                <!-- Profile 1 -->
+                <div class="reveal bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 group flex flex-col md:flex-row">
+                    <div class="md:w-1/3 h-48 md:h-auto overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=800" alt="CFO" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </div>
+                    <div class="md:w-2/3 p-8 relative">
+                        <div class="absolute top-4 right-8 text-6xl font-display font-bold text-navy/5 select-none">01</div>
+                        <div class="text-gold-d text-[10px] font-bold uppercase tracking-[0.2em] mb-4 border-b border-gold/20 pb-2 inline-block">Reducción de costos</div>
+                        <h3 class="text-navy text-xl mb-4 leading-tight font-bold">Director financiero o gerente industrial</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed relative z-10">Le importa el costo de la energía porque impacta directo su margen. Quiere entender qué está pagando de más, cómo negociar mejor su tarifa y qué retorno tiene una inversión en eficiencia o generación.</p>
+                    </div>
+                </div>
+                <!-- Profile 2 -->
+                <div class="reveal bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 group flex flex-col md:flex-row">
+                    <div class="md:w-1/3 h-48 md:h-auto overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=800" alt="Director Obra" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </div>
+                    <div class="md:w-2/3 p-8 relative">
+                        <div class="absolute top-4 right-8 text-6xl font-display font-bold text-navy/5 select-none">02</div>
+                        <div class="text-gold-d text-[10px] font-bold uppercase tracking-[0.2em] mb-4 border-b border-gold/20 pb-2 inline-block">Infraestructura eléctrica</div>
+                        <h3 class="text-navy text-xl mb-4 leading-tight font-bold">Director de obra o proyectos de construcción</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed relative z-10">Necesita que la infraestructura eléctrica de su proyecto esté bien diseñada, bien construida y a norma. No quiere sorpresas técnicas ni retrasos. Le importa la confiabilidad y el cumplimiento de cronogramas.</p>
+                    </div>
+                </div>
+                <!-- Profile 3 -->
+                <div class="reveal bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 group flex flex-col md:flex-row">
+                    <div class="md:w-1/3 h-48 md:h-auto overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800" alt="Sostenibilidad" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </div>
+                    <div class="md:w-2/3 p-8 relative">
+                        <div class="absolute top-4 right-8 text-6xl font-display font-bold text-navy/5 select-none">03</div>
+                        <div class="text-gold-d text-[10px] font-bold uppercase tracking-[0.2em] mb-4 border-b border-gold/20 pb-2 inline-block">Generación renovable</div>
+                        <h3 class="text-navy text-xl mb-4 leading-tight font-bold">Empresa comercial o corporativa</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed relative z-10">Quiere reducir su huella, cumplir compromisos de sostenibilidad y aprovechar incentivos tributarios. Ve la energía limpia como parte de su propuesta de valor y su imagen de marca.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Promises Section -->
+    <section class="py-24 bg-navy">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-20">
+            <div class="lg:col-span-4">
+                <div class="reveal text-gold text-xs font-bold uppercase tracking-widest mb-4">Nuestra Promesa</div>
+                <h2 class="reveal text-white text-4xl md:text-5xl mb-8 leading-tight">Cinco compromisos que hacemos a cada cliente</h2>
+                <p class="reveal text-lavender/60 text-lg font-light mb-10">Nada de lo que decimos tiene valor si no se puede medir. Cada proyecto debe poder responder la pregunta: ¿cuánto le mejoró la vida a ese cliente?</p>
+                <a href="#contacto" class="reveal bg-gold hover:bg-gold-d text-navy px-8 py-4 rounded-sm font-bold uppercase tracking-wider transition-all inline-block">Compruébenos → Diagnóstico gratuito</a>
+            </div>
+            <div class="lg:col-span-8 space-y-12">
+                <!-- Promise 1 -->
+                <div class="reveal flex gap-8 group">
+                    <div class="text-gold font-display text-2xl font-bold opacity-40 group-hover:opacity-100 transition-opacity">01</div>
+                    <div class="flex-1 border-b border-lavender/10 pb-12">
+                        <h3 class="text-white text-xl mb-4">Le diremos la verdad desde el primer diagnóstico.</h3>
+                        <p class="text-lavender/50 text-sm leading-relaxed">Si no hay oportunidad de ahorro real, se lo decimos. Preferiríamos perder una venta antes que perder su confianza.</p>
+                    </div>
+                </div>
+                <!-- Promise 2 -->
+                <div class="reveal flex gap-8 group">
+                    <div class="text-gold font-display text-2xl font-bold opacity-40 group-hover:opacity-100 transition-opacity">02</div>
+                    <div class="flex-1 border-b border-lavender/10 pb-12">
+                        <h3 class="text-white text-xl mb-4">Le hablaremos siempre en su idioma.</h3>
+                        <p class="text-lavender/50 text-sm leading-relaxed">No en el de la ingeniería. En el del resultado: cuánto ahorra, cuánto gana, cuándo recupera.</p>
+                    </div>
+                </div>
+                <!-- Promise 3 -->
+                <div class="reveal flex gap-8 group">
+                    <div class="text-gold font-display text-2xl font-bold opacity-40 group-hover:opacity-100 transition-opacity">03</div>
+                    <div class="flex-1 border-b border-lavender/10 pb-12">
+                        <h3 class="text-white text-xl mb-4">Panorama claro en menos de 48 horas.</h3>
+                        <p class="text-lavender/50 text-sm leading-relaxed">Si nos contacta, un asesor estará con usted antes de que pasen dos días hábiles. Sin burocracia.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+                <div>
+                    <div class="reveal text-gold-d text-xs font-bold uppercase tracking-widest mb-4">Conocimiento</div>
+                    <h2 class="reveal text-navy text-4xl md:text-5xl">Actualidad energética para su empresa</h2>
+                </div>
+                <a href="#" class="reveal text-navy hover:text-gold-d font-bold text-sm uppercase tracking-widest flex items-center gap-2 border-b-2 border-navy/10 pb-1">Ver todos los artículos <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Post 1 -->
+                <div class="reveal group cursor-pointer">
+                    <div class="bg-off-white aspect-video mb-6 rounded-sm overflow-hidden relative">
+                        <div class="absolute inset-0 bg-navy/0 group-hover:bg-navy/10 transition-colors"></div>
+                    </div>
+                    <div class="text-gold-d text-[10px] font-bold uppercase tracking-widest mb-3">Incentivos Tributarios</div>
+                    <h3 class="text-navy text-xl mb-4 group-hover:text-gold-d transition-colors leading-tight">¿Qué es la Ley 1715 y cómo puede reducir sus impuestos con energía solar?</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Todo lo que necesita saber sobre los beneficios fiscales disponibles para empresas que invierten en FNCE en Colombia.</p>
+                </div>
+                <!-- Post 2 -->
+                <div class="reveal group cursor-pointer">
+                    <div class="bg-off-white aspect-video mb-6 rounded-sm overflow-hidden relative">
+                        <div class="absolute inset-0 bg-navy/0 group-hover:bg-navy/10 transition-colors"></div>
+                    </div>
+                    <div class="text-gold-d text-[10px] font-bold uppercase tracking-widest mb-3">Eficiencia Energética</div>
+                    <h3 class="text-navy text-xl mb-4 group-hover:text-gold-d transition-colors leading-tight">5 señales de que su empresa está pagando de más en energía</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Identifique las ineficiencias más comunes y estime cuánto dinero puede estar perdiendo cada mes sin saberlo.</p>
+                </div>
+                <!-- Post 3 -->
+                <div class="reveal group cursor-pointer">
+                    <div class="bg-off-white aspect-video mb-6 rounded-sm overflow-hidden relative">
+                        <div class="absolute inset-0 bg-navy/0 group-hover:bg-navy/10 transition-colors"></div>
+                    </div>
+                    <div class="text-gold-d text-[10px] font-bold uppercase tracking-widest mb-3">Mercado Energético</div>
+                    <h3 class="text-navy text-xl mb-4 group-hover:text-gold-d transition-colors leading-tight">Mercado no regulado en Colombia: ¿qué es y cuándo le conviene?</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Una guía práctica para saber si su empresa califica y cuánto podría ahorrar cambiando de modalidad de contratación.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="py-24 bg-navy relative overflow-hidden">
+        <div class="absolute inset-0 vertical-lines opacity-10"></div>
+        
+        <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
+            <div class="reveal text-gold text-xs font-bold uppercase tracking-widest mb-6">El primer paso es gratis</div>
+            <h2 class="reveal text-white text-5xl md:text-7xl mb-4">Pruébenos.</h2>
+            <h3 class="reveal text-gold text-3xl md:text-4xl mb-8">Sin costo. Sin compromiso.</h3>
+            <p class="reveal text-lavender/60 text-lg font-light mb-16 max-w-2xl mx-auto">Diagnosticamos su caso y en menos de 48 horas le decimos dónde está parado y qué puede hacer. Conozca el potencial de ahorro de su empresa.</p>
+
+            <div class="reveal bg-white p-8 md:p-12 rounded-sm text-left shadow-2xl">
+                <form id="contact-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-navy text-xs font-bold uppercase tracking-wider">Nombre completo *</label>
+                        <input required type="text" class="w-full bg-off-white border border-navy/10 px-4 py-3 rounded-sm focus:outline-none focus:border-gold transition-colors">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-navy text-xs font-bold uppercase tracking-wider">Empresa *</label>
+                        <input required type="text" class="w-full bg-off-white border border-navy/10 px-4 py-3 rounded-sm focus:outline-none focus:border-gold transition-colors">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-navy text-xs font-bold uppercase tracking-wider">Cargo</label>
+                        <input type="text" class="w-full bg-off-white border border-navy/10 px-4 py-3 rounded-sm focus:outline-none focus:border-gold transition-colors">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-navy text-xs font-bold uppercase tracking-wider">Correo electrónico *</label>
+                        <input required type="email" class="w-full bg-off-white border border-navy/10 px-4 py-3 rounded-sm focus:outline-none focus:border-gold transition-colors">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-navy text-xs font-bold uppercase tracking-wider">Teléfono / WhatsApp</label>
+                        <input type="tel" class="w-full bg-off-white border border-navy/10 px-4 py-3 rounded-sm focus:outline-none focus:border-gold transition-colors">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-navy text-xs font-bold uppercase tracking-wider">Sector</label>
+                        <select class="w-full bg-off-white border border-navy/10 px-4 py-3 rounded-sm focus:outline-none focus:border-gold transition-colors appearance-none">
+                            <option>Industrial</option>
+                            <option>Comercial</option>
+                            <option>Construcción</option>
+                            <option>Inversionista</option>
+                            <option>Otro</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-2 space-y-2">
+                        <label class="text-navy text-xs font-bold uppercase tracking-wider">Servicio de interés</label>
+                        <select class="w-full bg-off-white border border-navy/10 px-4 py-3 rounded-sm focus:outline-none focus:border-gold transition-colors appearance-none">
+                            <option>Reducción de costos</option>
+                            <option>Infraestructura eléctrica</option>
+                            <option>Generación de energía</option>
+                            <option>Todos los anteriores</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-2 space-y-2">
+                        <label class="text-navy text-xs font-bold uppercase tracking-wider">Mensaje o descripción</label>
+                        <textarea rows="4" class="w-full bg-off-white border border-navy/10 px-4 py-3 rounded-sm focus:outline-none focus:border-gold transition-colors resize-none"></textarea>
+                    </div>
+                    <div class="md:col-span-2 pt-4">
+                        <button type="submit" class="w-full bg-gold hover:bg-gold-d text-navy py-4 rounded-sm font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3">
+                            Solicitar diagnóstico gratuito
+                        </button>
+                    </div>
+                </form>
+                <div id="success-message" class="hidden text-center py-12">
+                    <div class="w-20 h-20 bg-gold/10 text-gold rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="check-circle-2" class="w-10 h-10"></i>
+                    </div>
+                    <h3 class="text-navy text-3xl mb-4">¡Gracias!</h3>
+                    <p class="text-gray-500 text-lg max-w-md mx-auto">Un asesor de Soléctrica se comunicará con usted en menos de 48 horas hábiles con su diagnóstico energético gratuito.</p>
+                </div>
+            </div>
+
+            <div class="mt-12 text-lavender/40 text-sm">
+                ¿Prefiere WhatsApp? <a href="https://wa.me/573008760151" class="text-gold hover:underline">+57 300 876 0151</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-footer-bg pt-20 pb-10 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
+                <div class="space-y-6">
+                    <div class="font-display text-2xl font-bold text-white tracking-tighter">
+                        SOL<span class="text-gold">É</span>CTRICA
+                    </span>
+                    <p class="text-lavender/40 text-sm leading-relaxed">Transformamos la energía en ventaja competitiva para las empresas colombianas.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold uppercase tracking-widest text-xs mb-6">Navegación</h4>
+                    <ul class="space-y-4 text-lavender/40 text-sm">
+                        <li><a href="#inicio" class="hover:text-gold transition-colors">Inicio</a></li>
+                        <li><a href="#nosotros" class="hover:text-gold transition-colors">Sobre Nosotros</a></li>
+                        <li><a href="#soluciones" class="hover:text-gold transition-colors">Soluciones</a></li>
+                        <li><a href="#blog" class="hover:text-gold transition-colors">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold uppercase tracking-widest text-xs mb-6">Contacto</h4>
+                    <ul class="space-y-4 text-lavender/40 text-sm">
+                        <li class="flex items-center gap-3"><i data-lucide="mail" class="w-4 h-4 text-gold"></i> contacto@solectrica.com</li>
+                        <li class="flex items-center gap-3"><i data-lucide="phone" class="w-4 h-4 text-gold"></i> +57 300 876 0151</li>
+                        <li class="flex items-center gap-3"><i data-lucide="map-pin" class="w-4 h-4 text-gold"></i> Medellín, Colombia</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold uppercase tracking-widest text-xs mb-6">Legal</h4>
+                    <ul class="space-y-4 text-lavender/40 text-sm">
+                        <li><a href="#" class="hover:text-gold transition-colors">Privacidad</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Términos</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-lavender/20 text-xs">© 2026 Soléctrica S.A.S. Todos los derechos reservados.</div>
+                <div class="flex gap-6">
+                    <a href="#" class="text-lavender/20 hover:text-gold transition-colors"><i data-lucide="message-circle" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Widget -->
+    <a href="https://wa.me/573008760151" target="_blank" class="fixed bottom-8 right-8 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform flex items-center justify-center">
+        <i data-lucide="message-circle" class="w-6 h-6"></i>
+    </a>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 80) {
+                navbar.classList.remove('h-[80px]', 'bg-transparent');
+                navbar.classList.add('h-[60px]', 'glass-dark', 'shadow-2xl');
+            } else {
+                navbar.classList.add('h-[80px]', 'bg-transparent');
+                navbar.classList.remove('h-[60px]', 'glass-dark', 'shadow-2xl');
+            }
+            
+            // Progress Bar
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("scroll-progress").style.width = scrolled + "%";
+        });
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        
+        menuToggle.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('open');
+            if (isOpen) {
+                menuIcon.setAttribute('data-lucide', 'x');
+            } else {
+                menuIcon.setAttribute('data-lucide', 'menu');
+            }
+            lucide.createIcons();
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                menuIcon.setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+            });
+        });
+
+        // Intersection Observer for Reveal Animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // Counters
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.getAttribute('data-target'));
+                    animateCounter(entry.target, target);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+
+        function animateCounter(el, target) {
+            let current = 0;
+            const duration = 2000;
+            const stepTime = Math.abs(Math.floor(duration / target));
+            
+            if (target === 0) {
+                el.innerText = "0";
+                return;
+            }
+
+            const timer = setInterval(() => {
+                current += 1;
+                el.innerText = current;
+                if (current >= target) {
+                    clearInterval(timer);
+                }
+            }, stepTime);
+        }
+
+        // Form Submission
+        const contactForm = document.getElementById('contact-form');
+        const successMessage = document.getElementById('success-message');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Enviando...";
+
+            setTimeout(() => {
+                contactForm.classList.add('hidden');
+                successMessage.classList.remove('hidden');
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
