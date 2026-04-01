@@ -27,7 +27,7 @@
                         'gold-d': '#B89A10',
                         lavender: '#CFCFDB',
                         'off-white': '#F5F4F2',
-                        'footer-bg': '#14122A',
+                        'footer-bg': '#14181C',
                     },
                     fontFamily: {
                         sans: ['Barlow', 'sans-serif'],
@@ -288,11 +288,24 @@
     </section>
 
     <!-- Problem Section -->
-    <section class="py-24 bg-off-white">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-            <div class="lg:col-span-5">
+    <section class="py-24 bg-off-white relative overflow-hidden">
+        <!-- Colombia Map Background -->
+        <div class="absolute right-0 top-1/2 -translate-y-1/2 w-full lg:w-1/2 h-full opacity-10 pointer-events-none select-none">
+            <svg viewBox="0 0 400 500" class="w-full h-full fill-navy blur-[2px]">
+                <path d="M150,50 L180,40 L220,60 L250,50 L280,80 L300,120 L320,180 L310,250 L280,320 L250,380 L200,450 L150,480 L100,450 L80,400 L60,350 L50,300 L60,250 L80,200 L100,150 L120,100 Z" />
+                <!-- Presence Dots -->
+                <circle cx="160" cy="180" r="6" class="fill-gold animate-pulse" /> <!-- Medellín -->
+                <circle cx="180" cy="240" r="6" class="fill-gold animate-pulse" style="animation-delay: 0.5s" /> <!-- Bogotá -->
+                <circle cx="140" cy="120" r="6" class="fill-gold animate-pulse" style="animation-delay: 1s" /> <!-- Barranquilla -->
+                <circle cx="130" cy="280" r="6" class="fill-gold animate-pulse" style="animation-delay: 1.5s" /> <!-- Cali -->
+                <circle cx="210" cy="180" r="6" class="fill-gold animate-pulse" style="animation-delay: 2s" /> <!-- Bucaramanga -->
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center relative z-10">
+            <div class="lg:col-span-6">
                 <h2 class="reveal text-navy text-4xl md:text-5xl leading-tight">
-                    Cada mes que una empresa no optimiza su energía, <span class="text-gold-d">pierde dinero.</span> Silenciosamente. Sin saberlo.
+                    Si no optimizas tu energía en tu empresa, <span class="text-gold-d">sin saberlo estás perdiendo dinero.</span>
                 </h2>
             </div>
             <div class="lg:col-span-7 space-y-6 text-gray-600 text-lg font-light leading-relaxed reveal">
