@@ -154,7 +154,7 @@
     <div id="scroll-progress" class="fixed top-0 left-0 h-1 bg-gold z-[60] transition-all duration-100" style="width: 0%"></div>
 
     <!-- Navbar -->
-    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 h-[80px] bg-transparent">
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 h-[80px] glass-dark shadow-lg">
         <div class="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
             <a href="#inicio" class="flex items-center gap-2">
                 <span class="font-display text-2xl font-bold text-white tracking-tighter">
@@ -238,19 +238,19 @@
             <div class="absolute inset-0 grid-lines opacity-10"></div>
         </div>
         
-        <div class="max-w-7xl mx-auto px-6 relative z-10 w-full">
+        <div class="max-w-7xl mx-auto px-6 relative z-10 w-full pt-20">
             <div class="reveal inline-block glass px-4 py-1 rounded-full mb-8">
                 <div class="text-gold font-bold text-[10px] uppercase tracking-[0.3em]">
-                    Ingeniería energética · Colombia
+                    Ingeniería energética · 🇨🇴
                 </div>
             </div>
 
             <h1 class="reveal text-white text-6xl md:text-8xl lg:text-9xl max-w-5xl leading-[0.95] mb-8 font-display font-black">
-                Energía que <span class="text-gradient-gold">impulsa</span> su futuro
+                Energía que <span class="text-gradient-gold">impulsa</span>
             </h1>
 
             <p class="reveal text-lavender/80 text-xl md:text-2xl font-light max-w-2xl leading-relaxed mb-12">
-                Transformamos el gasto energético en una ventaja competitiva real. Control inteligente, infraestructura de clase mundial y generación sostenible.
+                Transformamos el gasto energético en una ventaja competitiva real. Control inteligente, infraestructura y generación sostenible.
             </p>
 
             <div class="reveal flex flex-col sm:flex-row gap-6 mb-24">
@@ -628,12 +628,12 @@
         // Navbar Scroll Effect
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 80) {
-                navbar.classList.remove('h-[80px]', 'bg-transparent');
-                navbar.classList.add('h-[60px]', 'glass-dark', 'shadow-2xl');
+            if (window.scrollY > 50) {
+                navbar.classList.remove('h-[80px]');
+                navbar.classList.add('h-[60px]', 'shadow-2xl');
             } else {
-                navbar.classList.add('h-[80px]', 'bg-transparent');
-                navbar.classList.remove('h-[60px]', 'glass-dark', 'shadow-2xl');
+                navbar.classList.add('h-[80px]');
+                navbar.classList.remove('h-[60px]', 'shadow-2xl');
             }
             
             // Progress Bar

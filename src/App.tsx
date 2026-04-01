@@ -42,8 +42,8 @@ const Navbar = () => {
 
   return (
     <nav 
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
-        isScrolled ? 'h-[60px] glass-dark shadow-2xl' : 'h-[80px] bg-transparent'
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 glass-dark shadow-lg ${
+        isScrolled ? 'h-[60px] shadow-2xl' : 'h-[80px]'
       }`}
     >
       <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
@@ -226,7 +226,7 @@ const Hero = () => {
         <div className="absolute inset-0 grid-lines opacity-10"></div>
       </div>
       
-      <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
+      <div className="max-w-7xl mx-auto px-6 relative z-10 w-full pt-20">
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -234,7 +234,7 @@ const Hero = () => {
           className="inline-block glass px-4 py-1 rounded-full mb-8"
         >
           <div className="text-gold font-bold text-[10px] uppercase tracking-[0.3em]">
-            Ingeniería energética · Colombia
+            Ingeniería energética · 🇨🇴
           </div>
         </motion.div>
 
@@ -244,7 +244,7 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-white text-6xl md:text-8xl lg:text-9xl max-w-5xl leading-[0.95] mb-8 font-display font-black"
         >
-          Energía que <span className="text-gradient-gold">impulsa</span> su futuro
+          Energía que <span className="text-gradient-gold">impulsa</span>
         </motion.h1>
 
         <motion.p 
@@ -253,7 +253,7 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-lavender/80 text-xl md:text-2xl font-light max-w-2xl leading-relaxed mb-12"
         >
-          Transformamos el gasto energético en una ventaja competitiva real. Control inteligente, infraestructura de clase mundial y generación sostenible.
+          Transformamos el gasto energético en una ventaja competitiva real. Control inteligente, infraestructura y generación sostenible.
         </motion.p>
 
         <motion.div 
