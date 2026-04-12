@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnóstico Avanzado - Soléctrica S.A.S.</title>
+    <meta name="description" content="Calculadora avanzada de ahorro solar y beneficios Ley 1715 para empresas y hogares en Colombia.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#1E1B39',
+                        gold: '#DFBD21',
+                        'gold-d': '#B89A10',
+                        lavender: '#CFCFDB',
+                        'off-white': '#F5F4F2',
+                        'footer-bg': '#14181C',
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #2A2737;
+            background-color: #F5F4F2;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .grid-lines {
+            background-image: linear-gradient(rgba(207, 207, 219, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(207, 207, 219, 0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .glass-dark {
+            background: rgba(30, 27, 57, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .text-gradient-gold {
+            background: linear-gradient(to right, #DFBD21, #F7E08B, #B89A10);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1E1B39;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #DFBD21;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #B89A10;
+        }
+
+        /* Reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile menu transition */
+        #mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out;
+            opacity: 0;
+        }
+        #mobile-menu.open {
+            max-height: 600px;
+            opacity: 1;
+        }
+
+        /* Dropdown transition */
+        #solutions-dropdown {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+        .group:hover #solutions-dropdown {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .input-focus:focus {
+            border-color: #DFBD21;
+            box-shadow: 0 0 0 2px rgba(223, 189, 33, 0.1);
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 1rem;
+            border: 1px solid rgba(30, 27, 57, 0.05);
+            transition: all 0.3s ease;
+        }
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(30, 27, 57, 0.08);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-1 bg-gold z-[60] transition-all duration-100" style="width: 0%"></div>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 h-[80px] glass-dark shadow-lg">
+        <div class="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2">
+                <span class="font-display text-2xl font-bold text-white tracking-tighter">
+                    SOL<span class="text-gold">É</span>CTRICA
+                </span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="index.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Inicio</a>
+                <a href="nosotros.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Sobre Nosotros</a>
+                
+                <div class="relative group">
+                    <button class="flex items-center gap-1 text-lavender hover:text-gold text-sm font-medium transition-colors py-4">
+                        Soluciones <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                    </button>
+                    <!-- Dropdown -->
+                    <div id="solutions-dropdown" class="absolute top-full left-0 w-64 bg-white shadow-xl rounded-b-lg overflow-hidden py-2">
+                        <a href="index.html#soluciones" class="block px-4 py-3 hover:bg-off-white transition-colors">
+                            <div class="text-navy font-bold text-sm flex items-center gap-2">
+                                <span class="text-gold">◆</span> Herramienta (Jessy)
+                            </div>
+                            <div class="text-gray-500 text-xs mt-1">Monitoreo IoT + IA</div>
+                        </a>
+                        <a href="index.html#soluciones" class="block px-4 py-3 hover:bg-off-white transition-colors">
+                            <div class="text-navy font-bold text-sm flex items-center gap-2">
+                                <span class="text-gold">◆</span> Infraestructura
+                            </div>
+                            <div class="text-gray-500 text-xs mt-1">Diseño y construcción</div>
+                        </a>
+                        <a href="index.html#soluciones" class="block px-4 py-3 hover:bg-off-white transition-colors">
+                            <div class="text-navy font-bold text-sm flex items-center gap-2">
+                                <span class="text-gold">◆</span> Generación
+                            </div>
+                            <div class="text-gray-500 text-xs mt-1">Energía renovable</div>
+                        </a>
+                    </div>
+                </div>
+
+                <a href="index.html#blog" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Blog</a>
+                <a href="index.html#contacto" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Contacto</a>
+                
+                <a href="diagnostico.html" class="bg-gold hover:bg-gold-d text-navy px-6 py-2 rounded-sm text-sm font-bold uppercase tracking-wider transition-all">
+                    Diagnóstico gratuito
+                </a>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button id="menu-toggle" class="lg:hidden text-white">
+                <i data-lucide="menu" id="menu-icon"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden bg-navy border-t border-white/10">
+            <div class="px-6 py-8 flex flex-col gap-6">
+                <a href="index.html" class="mobile-link text-white text-lg font-medium">Inicio</a>
+                <a href="nosotros.html" class="mobile-link text-white text-lg font-medium">Sobre Nosotros</a>
+                <div>
+                    <span class="text-white text-lg font-medium">Soluciones</span>
+                    <div class="mt-4 ml-4 flex flex-col gap-3">
+                        <a href="index.html#soluciones" class="mobile-link text-lavender text-sm">◆ Herramienta (Jessy)</a>
+                        <a href="index.html#soluciones" class="mobile-link text-lavender text-sm">◆ Infraestructura</a>
+                        <a href="index.html#soluciones" class="mobile-link text-lavender text-sm">◆ Generación</a>
+                    </div>
+                </div>
+                <a href="index.html#blog" class="mobile-link text-white text-lg font-medium">Blog</a>
+                <a href="index.html#contacto" class="mobile-link text-white text-lg font-medium">Contacto</a>
+                <a href="diagnostico.html" class="mobile-link bg-gold text-navy text-center py-3 rounded-sm font-bold uppercase tracking-wider">
+                    Diagnóstico gratuito
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-48 pb-24 bg-navy overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 grid-lines opacity-10"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-navy/50 to-navy"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
+            <div class="reveal inline-block glass px-4 py-1 rounded-full mb-8 mx-auto">
+                <div class="text-gold font-bold text-[10px] uppercase tracking-[0.3em]">
+                    Calculadora Avanzada Ley 1715
+                </div>
+            </div>
+            <h1 class="reveal text-white text-5xl md:text-7xl max-w-5xl mx-auto leading-tight mb-8">
+                Diagnóstico <span class="text-gradient-gold">Energético</span> Inteligente
+            </h1>
+            <p class="reveal text-lavender/70 text-xl font-light max-w-2xl mx-auto leading-relaxed">
+                Estima tu ahorro, impacto ambiental y beneficios tributarios en segundos. Ingeniería colombiana para un futuro sostenible.
+            </p>
+        </div>
+    </section>
+
+    <!-- Calculator Form Section -->
+    <section class="py-24 bg-off-white relative">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="reveal bg-white rounded-2xl p-8 md:p-12 shadow-2xl border border-navy/5">
+                <form id="solar-calculator" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-2 md:col-span-2">
+                        <label class="text-navy text-xs font-bold uppercase tracking-widest">Sector de aplicación</label>
+                        <select id="sector" class="w-full bg-off-white border border-navy/10 px-4 py-4 rounded-lg focus:outline-none focus:border-gold transition-colors appearance-none text-navy font-medium">
+                            <option value="residencial">Residencial</option>
+                            <option value="comercial">Comercial</option>
+                            <option value="industrial">Industrial</option>
+                        </select>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label class="text-navy text-xs font-bold uppercase tracking-widest">Consumo mensual (kWh)</label>
+                        <input required type="number" id="kwh-input" placeholder="Ej: 450" class="w-full bg-off-white border border-navy/10 px-4 py-4 rounded-lg focus:outline-none focus:border-gold transition-colors text-navy font-bold" />
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-navy text-xs font-bold uppercase tracking-widest">Valor factura mensual (COP)</label>
+                        <input required type="number" id="bill-input" placeholder="Ej: 350000" class="w-full bg-off-white border border-navy/10 px-4 py-4 rounded-lg focus:outline-none focus:border-gold transition-colors text-navy font-bold" />
+                    </div>
+
+                    <div class="md:col-span-2 pt-4">
+                        <button type="submit" class="w-full bg-gold hover:bg-gold-d text-navy py-5 rounded-lg font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3 shadow-lg group">
+                            Calcular mi ahorro y beneficios <i data-lucide="calculator" class="w-5 h-5 group-hover:rotate-12 transition-transform"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section (Hidden by default) -->
+    <section id="results-section" class="py-24 bg-white hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-navy text-4xl md:text-5xl mb-4">Tu Potencial de <span class="text-gold-d">Ahorro</span></h2>
+                <p class="text-gray-500 max-w-2xl mx-auto">Basado en un sistema solar que cubre el 90% de tu consumo actual.</p>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <div class="result-card p-8 text-center">
+                    <div class="w-12 h-12 bg-gold/10 text-gold rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="trending-up" class="w-6 h-6"></i>
+                    </div>
+                    <div class="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-2">Ahorro Año 1</div>
+                    <div id="savings-1yr" class="text-navy text-3xl font-display font-black">$ 0</div>
+                </div>
+                <div class="result-card p-8 text-center bg-navy">
+                    <div class="w-12 h-12 bg-gold/20 text-gold rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="calendar" class="w-6 h-6"></i>
+                    </div>
+                    <div class="text-lavender/40 text-[10px] font-bold uppercase tracking-widest mb-2">Ahorro a 5 Años</div>
+                    <div id="savings-5yr" class="text-white text-3xl font-display font-black">$ 0</div>
+                </div>
+                <div class="result-card p-8 text-center">
+                    <div class="w-12 h-12 bg-green-500/10 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="leaf" class="w-6 h-6"></i>
+                    </div>
+                    <div class="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-2">CO2 Evitado (Anual)</div>
+                    <div id="co2-evitado" class="text-navy text-3xl font-display font-black">0 Ton</div>
+                </div>
+            </div>
+
+            <!-- Ley 1715 Section -->
+            <div class="mb-24">
+                <div class="flex items-center gap-4 mb-12">
+                    <div class="h-px flex-1 bg-navy/10"></div>
+                    <h3 class="text-navy text-xl font-bold uppercase tracking-widest">Beneficios Ley 1715</h3>
+                    <div class="h-px flex-1 bg-navy/10"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-off-white p-6 rounded-xl border-l-4 border-gold">
+                        <h4 class="text-navy font-bold text-sm mb-2">Deducción de Renta</h4>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-4">Recupera hasta el 50% de tu inversión vía impuestos.</p>
+                        <div id="tax-deduction" class="text-gold-d font-bold text-lg">$ 0</div>
+                    </div>
+                    <div class="bg-off-white p-6 rounded-xl border-l-4 border-navy">
+                        <h4 class="text-navy font-bold text-sm mb-2">Exclusión de IVA</h4>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-4">Ahorro directo del 19% en la compra de equipos.</p>
+                        <div id="iva-exclusion" class="text-navy font-bold text-lg">$ 0</div>
+                    </div>
+                    <div class="bg-off-white p-6 rounded-xl border-l-4 border-navy">
+                        <h4 class="text-navy font-bold text-sm mb-2">Exención Aranceles</h4>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-4">0% de impuestos de importación para tecnología solar.</p>
+                        <div class="text-navy font-bold text-lg">Aplicable</div>
+                    </div>
+                    <div class="bg-off-white p-6 rounded-xl border-l-4 border-navy">
+                        <h4 class="text-navy font-bold text-sm mb-2">Depreciación</h4>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-4">Acelerada hasta el 33.33% anual.</p>
+                        <div class="text-navy font-bold text-lg">Disponible</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center mb-24">
+                <div class="lg:col-span-7 bg-off-white p-8 rounded-2xl shadow-inner">
+                    <canvas id="savingsChart" height="300"></canvas>
+                </div>
+                <div class="lg:col-span-5 space-y-8">
+                    <div id="sector-recommendation" class="space-y-6">
+                        <!-- Dynamic content here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lead Generation Section -->
+    <section id="lead-gen" class="py-24 bg-navy relative overflow-hidden">
+        <div class="absolute inset-0 vertical-lines opacity-10"></div>
+        <div class="max-w-5xl mx-auto px-6 relative z-10 text-center">
+            <h2 class="text-white text-4xl md:text-6xl mb-6">¿Listo para hacer estos números <span class="text-gold">realidad?</span></h2>
+            <p class="text-lavender/60 text-lg font-light mb-12 max-w-2xl mx-auto">
+                Solicita un diseño técnico y cotización exacta sin costo. Nuestro equipo de ingeniería estructurará la mejor solución para tu caso.
+            </p>
+
+            <div class="bg-white p-8 rounded-xl text-left shadow-2xl">
+                <form id="lead-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-1">
+                        <label class="text-navy text-[10px] font-bold uppercase tracking-wider">Nombre completo</label>
+                        <input required type="text" class="w-full bg-off-white border border-navy/10 px-4 py-3 rounded-lg focus:outline-none focus:border-gold transition-colors" />
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-navy text-[10px] font-bold uppercase tracking-wider">Empresa / Familia</label>
+                        <input required type="text" class="w-full bg-off-white border border-navy/10 px-4 py-3 rounded-lg focus:outline-none focus:border-gold transition-colors" />
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-navy text-[10px] font-bold uppercase tracking-wider">Teléfono</label>
+                        <input required type="tel" class="w-full bg-off-white border border-navy/10 px-4 py-3 rounded-lg focus:outline-none focus:border-gold transition-colors" />
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-navy text-[10px] font-bold uppercase tracking-wider">Email</label>
+                        <input required type="email" class="w-full bg-off-white border border-navy/10 px-4 py-3 rounded-lg focus:outline-none focus:border-gold transition-colors" />
+                    </div>
+                    <div class="md:col-span-2 pt-4">
+                        <button type="submit" class="w-full bg-gold hover:bg-gold-d text-navy py-4 rounded-lg font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-3">
+                            Solicitar Asesoría Experta <i data-lucide="send" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </form>
+                <div id="lead-success" class="hidden text-center py-12">
+                    <div class="w-20 h-20 bg-gold/10 text-gold rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="check-circle" class="w-10 h-10"></i>
+                    </div>
+                    <h3 class="text-navy text-3xl mb-4 font-bold">¡Solicitud Enviada!</h3>
+                    <p class="text-gray-500 text-lg">Un consultor experto de Soléctrica se pondrá en contacto contigo en menos de 48 horas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-footer-bg pt-20 pb-10 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-16 mb-20">
+                <!-- Column 1: Brand -->
+                <div class="space-y-8">
+                    <div class="space-y-6">
+                        <div class="font-display text-2xl font-bold text-white tracking-tighter">
+                            SOL<span class="text-gold">É</span>CTRICA
+                        </div>
+                        <p class="text-lavender/40 text-sm leading-relaxed">
+                            Transformamos la energía en ventaja competitiva para las empresas colombianas.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Column 2: Contact -->
+                <div>
+                    <h4 class="text-white font-bold uppercase tracking-widest text-xs mb-6">Contacto</h4>
+                    <ul class="space-y-4 text-lavender/40 text-sm">
+                        <li class="flex items-center gap-3"><i data-lucide="mail" class="w-4 h-4 text-gold"></i> contacto@solectrica.com</li>
+                        <li class="flex items-center gap-3"><i data-lucide="phone" class="w-4 h-4 text-gold"></i> +57 300 876 0151</li>
+                        <li class="flex items-center gap-3"><i data-lucide="map-pin" class="w-4 h-4 text-gold"></i> Bucaramanga, Colombia</li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Legal & Social -->
+                <div class="space-y-8">
+                    <div>
+                        <h4 class="text-white font-bold uppercase tracking-widest text-xs mb-6">Legal</h4>
+                        <ul class="space-y-4 text-lavender/40 text-sm">
+                            <li><a href="#" class="hover:text-gold transition-colors">Privacidad</a></li>
+                            <li><a href="#" class="hover:text-gold transition-colors">Términos</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold uppercase tracking-widest text-xs mb-6">Redes Sociales</h4>
+                        <div class="flex gap-4">
+                            <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-lavender/40 hover:bg-gold hover:text-navy transition-all">
+                                <i data-lucide="instagram" class="w-5 h-5"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-lavender/40 hover:bg-gold hover:text-navy transition-all">
+                                <i data-lucide="linkedin" class="w-5 h-5"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-lavender/40 hover:bg-gold hover:text-navy transition-all">
+                                <i data-lucide="facebook" class="w-5 h-5"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-lavender/40 hover:bg-gold hover:text-navy transition-all">
+                                <i data-lucide="twitter" class="w-5 h-5"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-white text-sm font-bold tracking-wide">
+                    © 2026 Soléctrica S.A.S. Todos los derechos reservados. | <a href="https://agenciavigrafik.com.co/" target="_blank" rel="noopener noreferrer" class="text-gold hover:underline">Creado por Agencia ViGrafik</a>
+                </div>
+                <div class="flex gap-6">
+                    <a href="#" class="text-lavender/20 hover:text-gold transition-colors"><i data-lucide="message-circle" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Widget -->
+    <a href="https://wa.me/573008760151" target="_blank" class="fixed bottom-8 right-8 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform flex items-center justify-center">
+        <i data-lucide="message-circle" class="w-6 h-6"></i>
+    </a>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.remove('h-[80px]');
+                navbar.classList.add('h-[60px]', 'shadow-2xl');
+            } else {
+                navbar.classList.add('h-[80px]');
+                navbar.classList.remove('h-[60px]', 'shadow-2xl');
+            }
+            
+            // Progress Bar
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("scroll-progress").style.width = scrolled + "%";
+        });
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        
+        menuToggle.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('open');
+            if (isOpen) {
+                menuIcon.setAttribute('data-lucide', 'x');
+            } else {
+                menuIcon.setAttribute('data-lucide', 'menu');
+            }
+            lucide.createIcons();
+        });
+
+        // Intersection Observer for Reveal Animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // --- Calculator Logic ---
+        let savingsChart = null;
+
+        const solarForm = document.getElementById('solar-calculator');
+        const resultsSection = document.getElementById('results-section');
+
+        solarForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const sector = document.getElementById('sector').value;
+            const kwh = parseFloat(document.getElementById('kwh-input').value);
+            const bill = parseFloat(document.getElementById('bill-input').value);
+
+            // 1. Ahorro en factura (90% cobertura)
+            const monthlySavings = bill * 0.9;
+            const savings1yr = monthlySavings * 12;
+            const savings5yr = savings1yr * 5;
+
+            // 2. Impacto Ambiental (CO2 evitado)
+            // Factor promedio Colombia: ~0.164 kg CO2 por kWh
+            const co2Evitado = (kwh * 12 * 0.164) / 1000; // Toneladas
+
+            // 3. Beneficios Ley 1715
+            // Estima inversión: kWh * factor (aprox 4.5M COP por kWp instalado, estimamos kWp basado en kWh)
+            // Un sistema de 1kWp produce aprox 120kWh/mes en Colombia
+            const estimatedKWp = kwh / 120;
+            const estimatedInvestment = estimatedKWp * 4500000;
+            
+            const taxDeduction = estimatedInvestment * 0.5; // 50% deducción renta
+            const ivaExclusion = estimatedInvestment * 0.19; // 19% IVA
+
+            // Update UI
+            document.getElementById('savings-1yr').innerText = formatCurrency(savings1yr);
+            document.getElementById('savings-5yr').innerText = formatCurrency(savings5yr);
+            document.getElementById('co2-evitado').innerText = co2Evitado.toFixed(2) + " Ton";
+            document.getElementById('tax-deduction').innerText = formatCurrency(taxDeduction);
+            document.getElementById('iva-exclusion').innerText = formatCurrency(ivaExclusion);
+
+            // Dynamic Recommendation
+            updateRecommendation(sector);
+
+            // Chart Update
+            updateChart(bill, monthlySavings);
+
+            // Show results
+            resultsSection.classList.remove('hidden');
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+            
+            // Re-trigger reveal animations for results
+            document.querySelectorAll('#results-section .reveal').forEach(el => el.classList.add('active'));
+        });
+
+        function formatCurrency(val) {
+            return new Intl.NumberFormat('es-CO', {
+                style: 'currency',
+                currency: 'COP',
+                maximumFractionDigits: 0
+            }).format(val);
+        }
+
+        function updateRecommendation(sector) {
+            const container = document.getElementById('sector-recommendation');
+            let content = '';
+
+            if (sector === 'residencial') {
+                content = `
+                    <div class="reveal active">
+                        <h4 class="text-gold-d font-bold text-xs uppercase tracking-widest mb-4">Recomendación Residencial</h4>
+                        <h3 class="text-navy text-2xl mb-4">Valoriza tu hogar y protege tu futuro</h3>
+                        <p class="text-gray-500 leading-relaxed">Instalar paneles solares no solo reduce tu factura a casi cero, sino que aumenta el valor comercial de tu inmueble hasta en un 15%. Disfruta de la tranquilidad de generar tu propia energía limpia.</p>
+                    </div>
+                `;
+            } else if (sector === 'comercial') {
+                content = `
+                    <div class="reveal active">
+                        <h4 class="text-gold-d font-bold text-xs uppercase tracking-widest mb-4">Recomendación Comercial</h4>
+                        <h3 class="text-navy text-2xl mb-4">Eficiencia operativa y Marketing Verde</h3>
+                        <p class="text-gray-500 leading-relaxed">Reduce tus costos fijos drásticamente y posiciona tu marca como líder en sostenibilidad. Los clientes prefieren empresas comprometidas con el medio ambiente.</p>
+                    </div>
+                `;
+            } else {
+                content = `
+                    <div class="reveal active">
+                        <h4 class="text-gold-d font-bold text-xs uppercase tracking-widest mb-4">Recomendación Industrial</h4>
+                        <h3 class="text-navy text-2xl mb-4">Competitividad y Retorno Acelerado</h3>
+                        <p class="text-gray-500 leading-relaxed">Aprovecha al máximo la Ley 1715 con depreciación acelerada y deducción de renta. En el sector industrial, el retorno de inversión es el más rápido del mercado, mejorando tu competitividad global.</p>
+                    </div>
+                `;
+            }
+            container.innerHTML = content;
+        }
+
+        function updateChart(monthlyBill, monthlySavings) {
+            const ctx = document.getElementById('savingsChart').getContext('2d');
+            
+            const labels = ['Año 1', 'Año 2', 'Año 3', 'Año 4', 'Año 5'];
+            const currentGasto = [];
+            const solarGasto = [];
+
+            let currentAcc = 0;
+            let solarAcc = 0;
+
+            for (let i = 1; i <= 5; i++) {
+                currentAcc += monthlyBill * 12;
+                solarAcc += (monthlyBill - monthlySavings) * 12;
+                currentGasto.push(currentAcc);
+                solarGasto.push(solarAcc);
+            }
+
+            if (savingsChart) {
+                savingsChart.destroy();
+            }
+
+            savingsChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Gasto Actual Acumulado',
+                            data: currentGasto,
+                            backgroundColor: '#1E1B39',
+                            borderRadius: 5
+                        },
+                        {
+                            label: 'Gasto con Soléctrica',
+                            data: solarGasto,
+                            backgroundColor: '#DFBD21',
+                            borderRadius: 5
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { family: 'Montserrat', weight: 'bold' }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value.toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Lead Form Submission
+        const leadForm = document.getElementById('lead-form');
+        const leadSuccess = document.getElementById('lead-success');
+
+        leadForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = leadForm.querySelector('button');
+            btn.disabled = true;
+            btn.innerText = "Enviando...";
+
+            setTimeout(() => {
+                leadForm.classList.add('hidden');
+                leadSuccess.classList.remove('hidden');
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

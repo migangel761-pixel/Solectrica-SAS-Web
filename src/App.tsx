@@ -8,7 +8,8 @@ import { motion, AnimatePresence, useScroll, useSpring } from 'motion/react';
 import { 
   Menu, X, ChevronDown, ArrowRight, MessageCircle, 
   Zap, Building2, TrendingUp, CheckCircle2, 
-  Clock, Percent, DollarSign, Mail, Phone, MapPin
+  Clock, Percent, DollarSign, Mail, Phone, MapPin,
+  Instagram, Linkedin, Facebook, Twitter
 } from 'lucide-react';
 
 // --- Components ---
@@ -308,16 +309,49 @@ const Hero = () => {
 
 const Problem = () => {
   return (
-    <section className="py-24 bg-off-white">
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-        <div className="lg:col-span-5">
+    <section className="py-24 bg-off-white relative overflow-hidden">
+      {/* Colombia Map Background */}
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-full lg:w-1/2 h-full opacity-10 pointer-events-none select-none">
+        <svg viewBox="0 0 400 500" className="w-full h-full fill-navy blur-[2px]">
+          <path d="M150,50 L180,40 L220,60 L250,50 L280,80 L300,120 L320,180 L310,250 L280,320 L250,380 L200,450 L150,480 L100,450 L80,400 L60,350 L50,300 L60,250 L80,200 L100,150 L120,100 Z" />
+          {/* Presence Dots */}
+          <motion.circle 
+            cx="160" cy="180" r="6" className="fill-gold"
+            animate={{ opacity: [0.3, 1, 0.3] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          /> {/* Medellín */}
+          <motion.circle 
+            cx="180" cy="240" r="6" className="fill-gold"
+            animate={{ opacity: [0.3, 1, 0.3] }}
+            transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+          /> {/* Bogotá */}
+          <motion.circle 
+            cx="140" cy="120" r="6" className="fill-gold"
+            animate={{ opacity: [0.3, 1, 0.3] }}
+            transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+          /> {/* Barranquilla */}
+          <motion.circle 
+            cx="130" cy="280" r="6" className="fill-gold"
+            animate={{ opacity: [0.3, 1, 0.3] }}
+            transition={{ duration: 2, repeat: Infinity, delay: 1.5 }}
+          /> {/* Cali */}
+          <motion.circle 
+            cx="210" cy="180" r="6" className="fill-gold"
+            animate={{ opacity: [0.3, 1, 0.3] }}
+            transition={{ duration: 2, repeat: Infinity, delay: 2 }}
+          /> {/* Bucaramanga */}
+        </svg>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center relative z-10">
+        <div className="lg:col-span-6">
           <motion.h2 
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="text-navy text-4xl md:text-5xl leading-tight"
           >
-            Cada mes que una empresa no optimiza su energía, <span className="text-gold-d">pierde dinero.</span> Silenciosamente. Sin saberlo.
+            Si no optimizas tu energía en tu empresa, <span className="text-gold-d">sin saberlo estás perdiendo dinero.</span>
           </motion.h2>
         </div>
         <div className="lg:col-span-7 space-y-6 text-muted text-lg font-light leading-relaxed">
@@ -689,15 +723,15 @@ const Contact = () => {
     <section id="contacto" className="py-24 bg-navy relative overflow-hidden">
       <div className="absolute inset-0 vertical-lines opacity-10"></div>
       
-      <div className="max-w-4xl mx-auto px-6 relative z-10 text-center">
+      <div className="max-w-5xl mx-auto px-6 relative z-10 text-center">
         <div className="text-gold text-xs font-bold uppercase tracking-widest mb-6">El primer paso es gratis</div>
         <h2 className="text-white text-5xl md:text-7xl mb-4">Pruébenos.</h2>
         <h3 className="text-gold text-3xl md:text-4xl mb-8">Sin costo. Sin compromiso.</h3>
-        <p className="text-lavender/60 text-lg font-light mb-16 max-w-2xl mx-auto">
+        <p className="text-lavender/60 text-lg font-light mb-10 max-w-2xl mx-auto">
           Diagnosticamos su caso y en menos de 48 horas le decimos dónde está parado y qué puede hacer. Conozca el potencial de ahorro de su empresa.
         </p>
 
-        <div className="bg-white p-8 md:p-12 rounded-sm text-left shadow-2xl">
+        <div className="bg-white p-6 md:p-8 rounded-sm text-left shadow-2xl">
           <AnimatePresence mode="wait">
             {!isSubmitted ? (
               <motion.form 
@@ -705,31 +739,31 @@ const Contact = () => {
                 initial={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onSubmit={handleSubmit} 
-                className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                className="grid grid-cols-1 md:grid-cols-3 gap-4"
               >
-                <div className="space-y-2">
-                  <label className="text-navy text-xs font-bold uppercase tracking-wider">Nombre completo *</label>
-                  <input required type="text" className="w-full bg-off-white border border-navy/10 px-4 py-3 rounded-sm focus:outline-none focus:border-gold transition-colors" />
+                <div className="space-y-1">
+                  <label className="text-navy text-[10px] font-bold uppercase tracking-wider">Nombre completo *</label>
+                  <input required type="text" className="w-full bg-off-white border border-navy/10 px-3 py-2 rounded-sm focus:outline-none focus:border-gold transition-colors text-sm" />
                 </div>
-                <div className="space-y-2">
-                  <label className="text-navy text-xs font-bold uppercase tracking-wider">Empresa *</label>
-                  <input required type="text" className="w-full bg-off-white border border-navy/10 px-4 py-3 rounded-sm focus:outline-none focus:border-gold transition-colors" />
+                <div className="space-y-1">
+                  <label className="text-navy text-[10px] font-bold uppercase tracking-wider">Empresa *</label>
+                  <input required type="text" className="w-full bg-off-white border border-navy/10 px-3 py-2 rounded-sm focus:outline-none focus:border-gold transition-colors text-sm" />
                 </div>
-                <div className="space-y-2">
-                  <label className="text-navy text-xs font-bold uppercase tracking-wider">Cargo</label>
-                  <input type="text" className="w-full bg-off-white border border-navy/10 px-4 py-3 rounded-sm focus:outline-none focus:border-gold transition-colors" />
+                <div className="space-y-1">
+                  <label className="text-navy text-[10px] font-bold uppercase tracking-wider">Cargo</label>
+                  <input type="text" className="w-full bg-off-white border border-navy/10 px-3 py-2 rounded-sm focus:outline-none focus:border-gold transition-colors text-sm" />
                 </div>
-                <div className="space-y-2">
-                  <label className="text-navy text-xs font-bold uppercase tracking-wider">Correo electrónico *</label>
-                  <input required type="email" className="w-full bg-off-white border border-navy/10 px-4 py-3 rounded-sm focus:outline-none focus:border-gold transition-colors" />
+                <div className="space-y-1">
+                  <label className="text-navy text-[10px] font-bold uppercase tracking-wider">Correo electrónico *</label>
+                  <input required type="email" className="w-full bg-off-white border border-navy/10 px-3 py-2 rounded-sm focus:outline-none focus:border-gold transition-colors text-sm" />
                 </div>
-                <div className="space-y-2">
-                  <label className="text-navy text-xs font-bold uppercase tracking-wider">Teléfono / WhatsApp</label>
-                  <input type="tel" className="w-full bg-off-white border border-navy/10 px-4 py-3 rounded-sm focus:outline-none focus:border-gold transition-colors" />
+                <div className="space-y-1">
+                  <label className="text-navy text-[10px] font-bold uppercase tracking-wider">Teléfono / WhatsApp</label>
+                  <input type="tel" className="w-full bg-off-white border border-navy/10 px-3 py-2 rounded-sm focus:outline-none focus:border-gold transition-colors text-sm" />
                 </div>
-                <div className="space-y-2">
-                  <label className="text-navy text-xs font-bold uppercase tracking-wider">Sector</label>
-                  <select className="w-full bg-off-white border border-navy/10 px-4 py-3 rounded-sm focus:outline-none focus:border-gold transition-colors appearance-none">
+                <div className="space-y-1">
+                  <label className="text-navy text-[10px] font-bold uppercase tracking-wider">Sector</label>
+                  <select className="w-full bg-off-white border border-navy/10 px-3 py-2 rounded-sm focus:outline-none focus:border-gold transition-colors appearance-none text-sm">
                     <option>Industrial</option>
                     <option>Comercial</option>
                     <option>Construcción</option>
@@ -737,23 +771,23 @@ const Contact = () => {
                     <option>Otro</option>
                   </select>
                 </div>
-                <div className="md:col-span-2 space-y-2">
-                  <label className="text-navy text-xs font-bold uppercase tracking-wider">Servicio de interés</label>
-                  <select className="w-full bg-off-white border border-navy/10 px-4 py-3 rounded-sm focus:outline-none focus:border-gold transition-colors appearance-none">
+                <div className="md:col-span-3 space-y-1">
+                  <label className="text-navy text-[10px] font-bold uppercase tracking-wider">Servicio de interés</label>
+                  <select className="w-full bg-off-white border border-navy/10 px-3 py-2 rounded-sm focus:outline-none focus:border-gold transition-colors appearance-none text-sm">
                     <option>Reducción de costos</option>
                     <option>Infraestructura eléctrica</option>
                     <option>Generación de energía</option>
                     <option>Todos los anteriores</option>
                   </select>
                 </div>
-                <div className="md:col-span-2 space-y-2">
-                  <label className="text-navy text-xs font-bold uppercase tracking-wider">Mensaje o descripción</label>
-                  <textarea rows={4} className="w-full bg-off-white border border-navy/10 px-4 py-3 rounded-sm focus:outline-none focus:border-gold transition-colors resize-none"></textarea>
+                <div className="md:col-span-3 space-y-1">
+                  <label className="text-navy text-[10px] font-bold uppercase tracking-wider">Mensaje o descripción</label>
+                  <textarea rows={2} className="w-full bg-off-white border border-navy/10 px-3 py-2 rounded-sm focus:outline-none focus:border-gold transition-colors resize-none text-sm"></textarea>
                 </div>
-                <div className="md:col-span-2 pt-4">
+                <div className="md:col-span-3 pt-2">
                   <button 
                     disabled={isLoading}
-                    className="w-full bg-gold hover:bg-gold-d text-navy py-4 rounded-sm font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+                    className="w-full bg-gold hover:bg-gold-d text-navy py-3 rounded-sm font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3 disabled:opacity-50 text-sm"
                   >
                     {isLoading ? "Enviando..." : "Solicitar diagnóstico gratuito"}
                   </button>
@@ -790,51 +824,63 @@ const Footer = () => {
   return (
     <footer className="bg-footer-bg pt-20 pb-10 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
-          <div className="space-y-6">
-            <div className="font-display text-2xl font-bold text-white tracking-tighter">
-              SOL<span className="text-gold">É</span>CTRICA
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mb-20">
+          {/* Column 1: Brand */}
+          <div className="space-y-8">
+            <div className="space-y-6">
+              <div className="font-display text-2xl font-bold text-white tracking-tighter">
+                SOL<span className="text-gold">É</span>CTRICA
+              </div>
+              <p className="text-lavender/40 text-sm leading-relaxed">
+                Transformamos la energía en ventaja competitiva para las empresas colombianas.
+              </p>
             </div>
-            <p className="text-lavender/40 text-sm leading-relaxed">
-              Transformamos la energía en ventaja competitiva para las empresas colombianas.
-            </p>
-          </div>
-          
-          <div>
-            <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-8">Navegación</h4>
-            <ul className="space-y-4 text-lavender/60 text-sm">
-              <li><a href="#inicio" className="hover:text-gold transition-colors">Inicio</a></li>
-              <li><a href="#nosotros" className="hover:text-gold transition-colors">Sobre Nosotros</a></li>
-              <li><a href="#soluciones" className="hover:text-gold transition-colors">Soluciones</a></li>
-              <li><a href="#blog" className="hover:text-gold transition-colors">Blog</a></li>
-              <li><a href="#contacto" className="hover:text-gold transition-colors">Contacto</a></li>
-            </ul>
           </div>
 
+          {/* Column 2: Contact */}
           <div>
-            <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-8">Soluciones</h4>
+            <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-6">Contacto</h4>
             <ul className="space-y-4 text-lavender/60 text-sm">
-              <li><a href="#soluciones" className="hover:text-gold transition-colors">Herramienta (Jessy)</a></li>
-              <li><a href="#soluciones" className="hover:text-gold transition-colors">Infraestructura Eléctrica</a></li>
-              <li><a href="#soluciones" className="hover:text-gold transition-colors">Generación de Energía</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-8">Contacto</h4>
-            <ul className="space-y-4 text-lavender/60 text-sm">
+              <li className="flex items-center gap-3"><Mail className="w-4 h-4 text-gold" /> contacto@solectrica.com</li>
               <li className="flex items-center gap-3"><Phone className="w-4 h-4 text-gold" /> +57 300 876 0151</li>
-              <li className="flex items-center gap-3"><Mail className="w-4 h-4 text-gold" /> gerencia.comercial@solectrica.co</li>
-              <li className="flex items-center gap-3"><MapPin className="w-4 h-4 text-gold" /> Colombia</li>
+              <li className="flex items-center gap-3"><MapPin className="w-4 h-4 text-gold" /> Bucaramanga, Colombia</li>
             </ul>
+          </div>
+
+          {/* Column 3: Legal & Social */}
+          <div className="space-y-8">
+            <div>
+              <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-6">Legal</h4>
+              <ul className="space-y-4 text-lavender/60 text-sm">
+                <li><a href="#" className="hover:text-gold transition-colors">Privacidad</a></li>
+                <li><a href="#" className="hover:text-gold transition-colors">Términos</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-6">Redes Sociales</h4>
+              <div className="flex gap-4">
+                <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-lavender/40 hover:bg-gold hover:text-navy transition-all">
+                  <Instagram className="w-5 h-5" />
+                </a>
+                <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-lavender/40 hover:bg-gold hover:text-navy transition-all">
+                  <Linkedin className="w-5 h-5" />
+                </a>
+                <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-lavender/40 hover:bg-gold hover:text-navy transition-all">
+                  <Facebook className="w-5 h-5" />
+                </a>
+                <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-lavender/40 hover:bg-gold hover:text-navy transition-all">
+                  <Twitter className="w-5 h-5" />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
-
-        <div className="border-t border-white/5 pt-10 flex flex-col md:flex-row justify-between items-center gap-6 text-lavender/30 text-xs">
-          <div>© Soléctrica S.A.S. 2025 · Todos los derechos reservados</div>
-          <div className="flex gap-8">
-            <a href="#" className="hover:text-white transition-colors">Política de privacidad</a>
-            <a href="#" className="hover:text-white transition-colors">Términos de servicio</a>
+        <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="text-white text-sm font-bold tracking-wide">
+            © 2026 Soléctrica S.A.S. Todos los derechos reservados. | <a href="https://www.agenciavigrafik.com.co" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">Creado por Agencia ViGrafik</a>
+          </div>
+          <div className="flex gap-6">
+            <a href="#" className="text-lavender/20 hover:text-gold transition-colors"><MessageCircle className="w-5 h-5" /></a>
           </div>
         </div>
       </div>
