@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sobre Nosotros - Soléctrica S.A.S.</title>
-    <meta name="description" content="Conozca a Soléctrica S.A.S., líderes en ingeniería energética en Colombia. Nuestra misión, visión y el equipo que transforma la energía en competitividad.">
+    <title>Proyectos y Resultados - Soléctrica S.A.S.</title>
+    <meta name="description" content="Casos de éxito y resultados reales de eficiencia energética y energía solar en Colombia con Soléctrica.">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -115,17 +115,16 @@
             opacity: 1;
         }
 
-        /* Dropdown transition */
-        #solutions-dropdown {
-            display: none;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.3s ease;
+        .project-card {
+            background: white;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            border: 1px solid rgba(30,27,57,0.05);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .group:hover #solutions-dropdown {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(30,27,57,0.08);
         }
     </style>
 </head>
@@ -146,8 +145,7 @@
             <!-- Desktop Menu -->
             <div class="hidden lg:flex items-center gap-8">
                 <a href="index.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Inicio</a>
-                <a href="nosotros.html" class="text-gold text-sm font-medium transition-colors">Sobre Nosotros</a>
-                <a href="proyectos.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Proyectos</a>
+                <a href="nosotros.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Sobre Nosotros</a>
                 
                 <div class="relative group">
                     <button class="flex items-center gap-1 text-lavender hover:text-gold text-sm font-medium transition-colors py-4">
@@ -176,11 +174,11 @@
                     </div>
                 </div>
 
-                <a href="index.html#blog" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Blog</a>
+                <a href="proyectos.html" class="text-gold text-sm font-medium transition-colors">Proyectos</a>
+                <a href="diagnostico.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Diagnóstico</a>
                 <a href="index.html#contacto" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Contacto</a>
-                
                 <a href="diagnostico.html" class="bg-gold hover:bg-gold-d text-navy px-6 py-2 rounded-sm text-sm font-bold uppercase tracking-wider transition-all">
-                    Diagnóstico gratuito
+                    Cotizar Proyecto
                 </a>
             </div>
 
@@ -194,8 +192,8 @@
         <div id="mobile-menu" class="lg:hidden bg-navy border-t border-white/10">
             <div class="px-6 py-8 flex flex-col gap-6">
                 <a href="index.html" class="mobile-link text-white text-lg font-medium">Inicio</a>
-                <a href="nosotros.html" class="mobile-link text-gold text-lg font-medium">Sobre Nosotros</a>
-                <a href="proyectos.html" class="mobile-link text-white text-lg font-medium">Proyectos</a>
+                <a href="nosotros.html" class="mobile-link text-white text-lg font-medium">Sobre Nosotros</a>
+                <a href="proyectos.html" class="mobile-link text-gold text-lg font-medium">Proyectos</a>
                 <div>
                     <span class="text-white text-lg font-medium">Soluciones</span>
                     <div class="mt-4 ml-4 flex flex-col gap-3">
@@ -204,16 +202,16 @@
                         <a href="generacion.html" class="mobile-link text-lavender text-sm">◆ Generación</a>
                     </div>
                 </div>
-                <a href="index.html#blog" class="mobile-link text-white text-lg font-medium">Blog</a>
+                <a href="diagnostico.html" class="mobile-link text-white text-lg font-medium">Diagnóstico</a>
                 <a href="index.html#contacto" class="mobile-link text-white text-lg font-medium">Contacto</a>
                 <a href="diagnostico.html" class="mobile-link bg-gold text-navy text-center py-3 rounded-sm font-bold uppercase tracking-wider">
-                    Diagnóstico gratuito
+                    Cotizar Proyecto
                 </a>
             </div>
         </div>
     </nav>
 
-    <!-- Subpage Hero -->
+    <!-- Project Hero -->
     <section class="relative pt-48 pb-32 bg-navy overflow-hidden">
         <div class="absolute inset-0 z-0">
             <div class="absolute inset-0 grid-lines opacity-10"></div>
@@ -223,97 +221,134 @@
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="reveal inline-block glass px-4 py-1 rounded-full mb-8">
                 <div class="text-gold font-bold text-[10px] uppercase tracking-[0.3em]">
-                    Nuestra Identidad
+                    Resultados Reales
                 </div>
             </div>
-            <h1 class="reveal text-white text-5xl md:text-7xl lg:text-8xl max-w-4xl leading-tight mb-8">
-                Ingeniería que <span class="text-gradient-gold">trasciende</span>
+            <h1 class="reveal text-white text-5xl md:text-7xl lg:text-8xl max-w-4xl leading-tight mb-8 font-display">
+                Proyectos y <span class="text-gradient-gold">Resultados</span>
             </h1>
             <p class="reveal text-lavender/70 text-xl font-light max-w-2xl leading-relaxed">
-                En Soléctrica S.A.S., no solo instalamos paneles o cables; diseñamos el futuro energético de las empresas colombianas con precisión y compromiso.
+                Ingeniería aplicada que se traduce en rentabilidad. Conoce cómo hemos transformado la operación de nuestros clientes.
             </p>
         </div>
     </section>
 
-    <!-- Mission & Vision -->
-    <section class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16">
-            <div class="reveal space-y-8">
-                <div class="w-16 h-1 w-bg-gold bg-gold"></div>
-                <h2 class="text-navy text-4xl">Nuestra Misión</h2>
-                <p class="text-gray-600 text-lg font-light leading-relaxed">
-                    Proveer soluciones integrales de ingeniería energética que permitan a las empresas colombianas optimizar sus costos, mejorar su infraestructura y transitar hacia modelos de generación sostenible, garantizando siempre la máxima confiabilidad técnica y el cumplimiento normativo.
-                </p>
-            </div>
-            <div class="reveal space-y-8" style="transition-delay: 0.2s">
-                <div class="w-16 h-1 bg-navy"></div>
-                <h2 class="text-navy text-4xl">Nuestra Visión</h2>
-                <p class="text-gray-600 text-lg font-light leading-relaxed">
-                    Para el año 2030, seremos el aliado estratégico referente en Colombia para la transformación energética industrial, reconocidos por nuestra capacidad de innovación tecnológica a través de IA e IoT, y por liderar la implementación de proyectos de energía renovable de alto impacto.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Values Section -->
+    <!-- Case Studies -->
     <section class="py-24 bg-off-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <div class="reveal text-gold-d text-xs font-bold uppercase tracking-widest mb-4">Lo que nos mueve</div>
-                <h2 class="reveal text-navy text-4xl md:text-5xl">Valores Fundamentales</h2>
-            </div>
+        <div class="max-w-7xl mx-auto px-6 space-y-24">
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="reveal glass bg-white p-10 rounded-2xl shadow-sm hover:shadow-xl transition-all">
-                    <div class="text-gold mb-6"><i data-lucide="zap" class="w-10 h-10"></i></div>
-                    <h3 class="text-navy text-xl mb-4">Innovación Técnica</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed">Aplicamos las últimas tecnologías en monitoreo y generación para ofrecer soluciones que otros no ven.</p>
+            <!-- Project 1: Industrial -->
+            <div class="reveal project-card grid grid-cols-1 lg:grid-cols-2">
+                <div class="h-64 lg:h-auto overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1541888946425-d81bb19480c5?auto=format&fit=crop&q=80&w=1200" alt="Planta Industrial" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-navy/20"></div>
+                    <div class="absolute top-6 left-6 bg-gold text-navy text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-widest leading-none">Industrial</div>
                 </div>
-                <div class="reveal glass bg-white p-10 rounded-2xl shadow-sm hover:shadow-xl transition-all" style="transition-delay: 0.1s">
-                    <div class="text-gold mb-6"><i data-lucide="check-circle-2" class="w-10 h-10"></i></div>
-                    <h3 class="text-navy text-xl mb-4">Integridad Normativa</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed">El cumplimiento del RETIE y las normas técnicas no es negociable. La seguridad es nuestra prioridad.</p>
-                </div>
-                <div class="reveal glass bg-white p-10 rounded-2xl shadow-sm hover:shadow-xl transition-all" style="transition-delay: 0.2s">
-                    <div class="text-gold mb-6"><i data-lucide="trending-up" class="w-10 h-10"></i></div>
-                    <h3 class="text-navy text-xl mb-4">Compromiso con el Ahorro</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed">Cada proyecto que ejecutamos debe traducirse en una mejora tangible en el flujo de caja de nuestros clientes.</p>
+                <div class="p-8 md:p-12 flex flex-col justify-center">
+                    <h2 class="text-navy text-3xl mb-6">Planta Textil Sostenible</h2>
+                    <div class="space-y-6 mb-8 text-sm">
+                        <div>
+                            <span class="text-gold-d font-bold uppercase tracking-widest text-[10px] block mb-1">El Problema</span>
+                            <p class="text-gray-500 font-light leading-relaxed">Costos energéticos que representaban el 18% de sus gastos operativos totales, con picos de demanda no controlados y multas por factor de potencia.</p>
+                        </div>
+                        <div>
+                            <span class="text-gold-d font-bold uppercase tracking-widest text-[10px] block mb-1">Nuestra Solución</span>
+                            <p class="text-gray-500 font-light leading-relaxed">Instalación de sistema solar fotovoltaico de 250 kWp integrado con nuestra herramienta JESSY para gestión de demanda activa y bancos de condensadores industriales.</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 pt-4 border-t border-gray-100">
+                            <div>
+                                <span class="text-navy font-bold text-2xl block">45%</span>
+                                <span class="text-gray-400 text-[10px] uppercase font-bold tracking-widest">Ahorro Mensual</span>
+                            </div>
+                            <div>
+                                <span class="text-navy font-bold text-2xl block">3.2 Años</span>
+                                <span class="text-gray-400 text-[10px] uppercase font-bold tracking-widest">Retorno (ROI)</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- Project 2: Commercial -->
+            <div class="reveal project-card grid grid-cols-1 lg:grid-cols-2">
+                <div class="p-8 md:p-12 flex flex-col justify-center order-2 lg:order-1">
+                    <h2 class="text-navy text-3xl mb-6">Centro Comercial Gran Sol</h2>
+                    <div class="space-y-6 mb-8 text-sm">
+                        <div>
+                            <span class="text-gold-d font-bold uppercase tracking-widest text-[10px] block mb-1">El Problema</span>
+                            <p class="text-gray-500 font-light leading-relaxed">Alta dependencia de la red eléctrica para áreas comunes y aires acondicionados, resultando en cuotas de administración elevadas por costos compartidos de energía.</p>
+                        </div>
+                        <div>
+                            <span class="text-gold-d font-bold uppercase tracking-widest text-[10px] block mb-1">Nuestra Solución</span>
+                            <p class="text-gray-500 font-light leading-relaxed">Modernización de luminarias LED, sensores de movimiento y sistema híbrido solar de 120 kWp para alimentar el 100% de las zonas comunes e iluminación exterior.</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 pt-4 border-t border-gray-100">
+                            <div>
+                                <span class="text-navy font-bold text-2xl block">60%</span>
+                                <span class="text-gray-400 text-[10px] uppercase font-bold tracking-widest">Reducción Gasto Común</span>
+                            </div>
+                            <div>
+                                <span class="text-navy font-bold text-2xl block">LEED</span>
+                                <span class="text-gray-400 text-[10px] uppercase font-bold tracking-widest">Certificación Obtenida</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="h-64 lg:h-auto overflow-hidden relative order-1 lg:order-2">
+                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1200" alt="Centro Comercial" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-navy/20"></div>
+                    <div class="absolute top-6 left-6 bg-gold text-navy text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-widest leading-none">Comercial</div>
+                </div>
+            </div>
+
+            <!-- Project 3: Construction/Infrastructure -->
+            <div class="reveal project-card grid grid-cols-1 lg:grid-cols-2">
+                <div class="h-64 lg:h-auto overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200" alt="Edificio Oficinas" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-navy/20"></div>
+                    <div class="absolute top-6 left-6 bg-gold text-navy text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-widest leading-none">Infraestructura</div>
+                </div>
+                <div class="p-8 md:p-12 flex flex-col justify-center">
+                    <h2 class="text-navy text-3xl mb-6">Distrito Energético Empresarial</h2>
+                    <div class="space-y-6 mb-8 text-sm">
+                        <div>
+                            <span class="text-gold-d font-bold uppercase tracking-widest text-[10px] block mb-1">El Problema</span>
+                            <p class="text-gray-500 font-light leading-relaxed">Complejo de oficinas con infraestructura eléctrica obsoleta (más de 20 años) que presentaba fallas constantes y un consumo pasivo extremadamente alto.</p>
+                        </div>
+                        <div>
+                            <span class="text-gold-d font-bold uppercase tracking-widest text-[10px] block mb-1">Nuestra Solución</span>
+                            <p class="text-gray-500 font-light leading-relaxed">Retrofit completo de infraestructura eléctrica según RETIE, implementación de subestación inteligente y sistema de monitoreo IoT para detección de fugas energéticas.</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 pt-4 border-t border-gray-100">
+                            <div>
+                                <span class="text-navy font-bold text-2xl block">99.9%</span>
+                                <span class="text-gray-400 text-[10px] uppercase font-bold tracking-widest">Confiabilidad Red</span>
+                            </div>
+                            <div>
+                                <span class="text-navy font-bold text-2xl block">120M</span>
+                                <span class="text-gray-400 text-[10px] uppercase font-bold tracking-widest">Ahorro Anual (COP)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <!-- History / Experience -->
+    <!-- Final CTA -->
     <section class="py-24 bg-navy relative overflow-hidden">
-        <div class="absolute inset-0 opacity-5">
-            <div class="absolute inset-0 grid-lines"></div>
-        </div>
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div class="reveal">
-                <h2 class="text-white text-4xl md:text-5xl mb-8 leading-tight">Trayectoria y <span class="text-gradient-gold">Experiencia</span></h2>
-                <div class="space-y-6 text-lavender/70 text-lg font-light">
-                    <p>Soléctrica S.A.S. nació de la necesidad de cerrar la brecha entre la ingeniería eléctrica tradicional y las nuevas demandas de eficiencia del mercado moderno.</p>
-                    <p>Con sede en Bucaramanga y presencia en las principales ciudades de Colombia, hemos ejecutado proyectos que van desde la infraestructura básica industrial hasta complejos sistemas de autogeneración solar a gran escala.</p>
-                    <p>Nuestro equipo está compuesto por ingenieros especialistas certificados, apasionados por la energía y comprometidos con la excelencia operativa.</p>
-                </div>
-            </div>
-            <div class="reveal grid grid-cols-2 gap-4">
-                <div class="bg-white/5 p-8 rounded-2xl border border-white/10 text-center">
-                    <div class="text-gold text-4xl font-bold mb-2">+10</div>
-                    <div class="text-white text-xs uppercase tracking-widest">Años de experiencia</div>
-                </div>
-                <div class="bg-white/5 p-8 rounded-2xl border border-white/10 text-center">
-                    <div class="text-gold text-4xl font-bold mb-2">+50</div>
-                    <div class="text-white text-xs uppercase tracking-widest">Proyectos solares</div>
-                </div>
-                <div class="bg-white/5 p-8 rounded-2xl border border-white/10 text-center">
-                    <div class="text-gold text-4xl font-bold mb-2">+200</div>
-                    <div class="text-white text-xs uppercase tracking-widest">Clientes industriales</div>
-                </div>
-                <div class="bg-white/5 p-8 rounded-2xl border border-white/10 text-center">
-                    <div class="text-gold text-4xl font-bold mb-2">100%</div>
-                    <div class="text-white text-xs uppercase tracking-widest">Cumplimiento RETIE</div>
-                </div>
+        <div class="absolute inset-0 grid-lines opacity-10"></div>
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <h2 class="text-white text-4xl md:text-6xl mb-8 leading-tight">Queremos que tu empresa sea el <span class="text-gold">próximo caso de éxito.</span></h2>
+            <p class="text-lavender/60 text-lg font-light mb-12">No dejes pasar más tiempo. Cada mes de espera es dinero que podrías estar ahorrando.</p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                <a href="diagnostico.html" class="bg-gold hover:bg-gold-d text-navy px-10 py-5 rounded-full font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-3">
+                    Calcula tu Ahorro <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </a>
+                <a href="index.html#contacto" class="glass hover:bg-white/10 text-white px-10 py-5 rounded-full font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-3">
+                    Hablar con un Experto
+                </a>
             </div>
         </div>
     </section>
@@ -322,7 +357,6 @@
     <footer class="bg-footer-bg pt-20 pb-10 border-t border-white/5">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-16 mb-20">
-                <!-- Column 1: Brand -->
                 <div class="space-y-8">
                     <div class="space-y-6">
                         <div class="font-display text-2xl font-bold text-white tracking-tighter">
@@ -333,8 +367,6 @@
                         </p>
                     </div>
                 </div>
-
-                <!-- Column 2: Contact -->
                 <div>
                     <h4 class="text-white font-bold uppercase tracking-widest text-xs mb-6">Contacto</h4>
                     <ul class="space-y-4 text-lavender/40 text-sm">
@@ -343,8 +375,6 @@
                         <li class="flex items-center gap-3"><i data-lucide="map-pin" class="w-4 h-4 text-gold"></i> Bucaramanga, Colombia</li>
                     </ul>
                 </div>
-
-                <!-- Column 3: Legal & Social -->
                 <div class="space-y-8">
                     <div>
                         <h4 class="text-white font-bold uppercase tracking-widest text-xs mb-6">Legal</h4>
@@ -356,18 +386,10 @@
                     <div>
                         <h4 class="text-white font-bold uppercase tracking-widest text-xs mb-6">Redes Sociales</h4>
                         <div class="flex gap-4">
-                            <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-lavender/40 hover:bg-gold hover:text-navy transition-all">
-                                <i data-lucide="instagram" class="w-5 h-5"></i>
-                            </a>
-                            <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-lavender/40 hover:bg-gold hover:text-navy transition-all">
-                                <i data-lucide="linkedin" class="w-5 h-5"></i>
-                            </a>
-                            <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-lavender/40 hover:bg-gold hover:text-navy transition-all">
-                                <i data-lucide="facebook" class="w-5 h-5"></i>
-                            </a>
-                            <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-lavender/40 hover:bg-gold hover:text-navy transition-all">
-                                <i data-lucide="twitter" class="w-5 h-5"></i>
-                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-lavender/40 hover:bg-gold hover:text-navy transition-all"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-lavender/40 hover:bg-gold hover:text-navy transition-all"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-lavender/40 hover:bg-gold hover:text-navy transition-all"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-lavender/40 hover:bg-gold hover:text-navy transition-all"><i data-lucide="twitter" class="w-5 h-5"></i></a>
                         </div>
                     </div>
                 </div>
@@ -375,9 +397,6 @@
             <div class="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
                 <div class="text-white text-sm font-bold tracking-wide">
                     © 2026 Soléctrica S.A.S. Todos los derechos reservados. | <a href="https://agenciavigrafik.com.co/" target="_blank" rel="noopener noreferrer" class="text-gold hover:underline">Creado por Agencia ViGrafik</a>
-                </div>
-                <div class="flex gap-6">
-                    <a href="#" class="text-lavender/20 hover:text-gold transition-colors"><i data-lucide="message-circle" class="w-5 h-5"></i></a>
                 </div>
             </div>
         </div>
@@ -389,10 +408,7 @@
     </a>
 
     <script>
-        // Initialize Lucide Icons
         lucide.createIcons();
-
-        // Navbar Scroll Effect
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
@@ -402,42 +418,24 @@
                 navbar.classList.add('h-[80px]');
                 navbar.classList.remove('h-[60px]', 'shadow-2xl');
             }
-            
-            // Progress Bar
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const scrolled = (winScroll / height) * 100;
             document.getElementById("scroll-progress").style.width = scrolled + "%";
         });
-
-        // Mobile Menu Toggle
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuIcon = document.getElementById('menu-icon');
-        
         menuToggle.addEventListener('click', () => {
             const isOpen = mobileMenu.classList.toggle('open');
-            if (isOpen) {
-                menuIcon.setAttribute('data-lucide', 'x');
-            } else {
-                menuIcon.setAttribute('data-lucide', 'menu');
-            }
+            menuIcon.setAttribute('data-lucide', isOpen ? 'x' : 'menu');
             lucide.createIcons();
         });
-
-        // Intersection Observer for Reveal Animations
-        const observerOptions = {
-            threshold: 0.1
-        };
-
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('active');
             });
-        }, observerOptions);
-
+        }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
     </script>
 </body>

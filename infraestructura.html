@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infraestructura Eléctrica Industrial - Soléctrica S.A.S.</title>
+    <meta name="description" content="Diseño, construcción y mantenimiento de infraestructura eléctrica con certificación RETIE para empresas colombianas.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#1E1B39',
+                        gold: '#DFBD21',
+                        'gold-d': '#B89A10',
+                        lavender: '#CFCFDB',
+                        'off-white': '#F5F4F2',
+                        'footer-bg': '#14181C',
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #2A2737;
+            background-color: #F5F4F2;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .grid-lines {
+            background-image: linear-gradient(rgba(207, 207, 219, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(207, 207, 219, 0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .glass-dark {
+            background: rgba(30, 27, 57, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .text-gradient-gold {
+            background: linear-gradient(to right, #DFBD21, #F7E08B, #B89A10);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out;
+            opacity: 0;
+        }
+        #mobile-menu.open {
+            max-height: 600px;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 h-[80px] glass-dark shadow-lg">
+        <div class="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2">
+                <span class="font-display text-2xl font-bold text-white tracking-tighter uppercase whitespace-nowrap">
+                    SOL<span class="text-gold">É</span>CTRICA
+                </span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="index.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Inicio</a>
+                <a href="nosotros.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Sobre Nosotros</a>
+                
+                <div class="relative group">
+                    <button class="flex items-center gap-1 text-gold text-sm font-medium transition-colors py-4">
+                        Soluciones <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                    </button>
+                    <div class="absolute top-full left-0 w-64 bg-white shadow-xl rounded-b-lg overflow-hidden py-2 text-left">
+                        <a href="herramienta.html" class="block px-4 py-3 hover:bg-off-white transition-colors">
+                            <div class="text-navy font-bold text-sm flex items-center gap-2">
+                                <span class="text-gold">◆</span> Herramienta (Jessy)
+                            </div>
+                            <div class="text-gray-500 text-xs mt-1">Monitoreo IoT + IA</div>
+                        </a>
+                        <a href="infraestructura.html" class="block px-4 py-3 hover:bg-off-white bg-off-white/50 transition-colors">
+                            <div class="text-navy font-bold text-sm flex items-center gap-2">
+                                <span class="text-gold">◆</span> Infraestructura
+                            </div>
+                            <div class="text-gray-500 text-xs mt-1">Diseño y construcción</div>
+                        </a>
+                        <a href="generacion.html" class="block px-4 py-3 hover:bg-off-white transition-colors">
+                            <div class="text-navy font-bold text-sm flex items-center gap-2">
+                                <span class="text-gold">◆</span> Generación
+                            </div>
+                            <div class="text-gray-500 text-xs mt-1">Energía renovable</div>
+                        </a>
+                    </div>
+                </div>
+
+                <a href="proyectos.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Proyectos</a>
+                <a href="diagnostico.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Diagnóstico</a>
+                <a href="index.html#contacto" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Contacto</a>
+                <a href="diagnostico.html" class="bg-gold hover:bg-gold-d text-navy px-6 py-2 rounded-sm text-sm font-bold uppercase tracking-wider transition-all">
+                    Cotizar
+                </a>
+            </div>
+
+            <button id="menu-toggle" class="lg:hidden text-white"><i data-lucide="menu"></i></button>
+        </div>
+
+        <div id="mobile-menu" class="lg:hidden bg-navy border-t border-white/10">
+            <div class="px-6 py-8 flex flex-col gap-6 text-white text-lg font-medium">
+                <a href="index.html">Inicio</a>
+                <a href="nosotros.html">Sobre Nosotros</a>
+                <a href="herramienta.html">Herramienta (Jessy)</a>
+                <a href="infraestructura.html" class="text-gold">Infraestructura</a>
+                <a href="generacion.html">Generación</a>
+                <a href="proyectos.html">Proyectos</a>
+                <a href="diagnostico.html">Diagnóstico</a>
+                <a href="index.html#contacto">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="relative pt-48 pb-32 bg-navy overflow-hidden min-h-[70vh] flex items-center">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 grid-lines opacity-10"></div>
+            <div class="absolute bottom-0 right-0 w-full h-full bg-gradient-to-t from-navy to-transparent opacity-60"></div>
+            <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=2000" alt="Subestación Eléctrica" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay">
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="reveal inline-block border border-gold/30 bg-gold/10 px-4 py-1 rounded-full mb-8">
+                <span class="text-gold font-bold text-[10px] uppercase tracking-[0.3em]">INGENIERÍA DE ALTA TENSIÓN</span>
+            </div>
+            <h1 class="reveal text-white text-5xl md:text-7xl lg:text-8xl max-w-4xl leading-tight mb-8">
+                INFRAESTRUCTURA <span class="text-gradient-gold">SIN LÍMITES</span>
+            </h1>
+            <p class="reveal text-lavender/70 text-xl font-light max-w-2xl leading-relaxed">
+                Diseñamos y construimos las bases eléctricas que sostienen el crecimiento de la industria colombiana. Calidad certificada, seguridad total.
+            </p>
+        </div>
+    </section>
+
+    <!-- Excellence Section -->
+    <section class="py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                <div class="reveal">
+                    <h2 class="text-navy text-4xl md:text-5xl mb-8 leading-tight">Expertos en <span class="text-gold-d">Garantizar</span> Continuidad</h2>
+                    <p class="text-gray-500 text-lg font-light leading-relaxed mb-10">
+                        En Soléctrica no solo instalamos cables; creamos sistemas de distribución inteligentes que minimizan las pérdidas y maximizan la confiabilidad de tu operación.
+                    </p>
+                    <div class="space-y-6">
+                        <div class="flex gap-6 p-6 rounded-2xl bg-off-white hover:bg-gold/5 transition-colors group">
+                            <div class="w-12 h-12 bg-navy text-gold flex items-center justify-center rounded-xl shrink-0 group-hover:scale-110 transition-transform">
+                                <i data-lucide="shield-check"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-navy font-bold text-lg mb-2">Normativa RETIE</h4>
+                                <p class="text-gray-400 text-sm">Garantizamos el cumplimiento técnico legal para asegurar la integridad de personas e instalaciones.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-6 rounded-2xl bg-off-white hover:bg-gold/5 transition-colors group">
+                            <div class="w-12 h-12 bg-navy text-gold flex items-center justify-center rounded-xl shrink-0 group-hover:scale-110 transition-transform">
+                                <i data-lucide="settings"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-navy font-bold text-lg mb-2">Retrofit Eléctrico</h4>
+                                <p class="text-gray-500 text-sm leading-relaxed">Repotenciación de infraestructuras obsoletas para adaptarlas a las demandas actuales.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="reveal relative">
+                    <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=1200" alt="Ingeniero Eléctrico" class="rounded-3xl shadow-2xl">
+                    <div class="absolute -bottom-10 -left-10 bg-gold p-8 rounded-2xl shadow-xl hidden md:block">
+                        <span class="text-navy text-4xl font-black block">+15</span>
+                        <span class="text-navy/60 text-[10px] font-bold uppercase tracking-widest">Años de experiencia</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="py-32 bg-navy relative">
+        <div class="absolute inset-0 grid-lines opacity-10"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-24 max-w-2xl mx-auto">
+                <h2 class="text-white text-4xl mb-6">Soluciones <span class="text-gold">360°</span></h2>
+                <p class="text-lavender/60 font-light">Desde el plano inicial hasta el mantenimiento preventivo, cubrimos todo el ciclo de vida eléctrico.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="reveal group p-8 rounded-2xl border border-white/5 hover:border-gold/30 transition-all bg-white/5">
+                    <i data-lucide="zap" class="text-gold w-10 h-10 mb-6 group-hover:scale-125 transition-transform"></i>
+                    <h3 class="text-white text-xl mb-4">Redes MT / BT</h3>
+                    <p class="text-lavender/40 text-sm leading-relaxed">Construcción y diseño de redes de media y baja tensión cumpliendo estándares internacionales.</p>
+                </div>
+                <!-- Service 2 -->
+                <div class="reveal group p-8 rounded-2xl border border-white/5 hover:border-gold/30 transition-all bg-white/5" style="transition-delay: 0.1s">
+                    <i data-lucide="layers" class="text-gold w-10 h-10 mb-6 group-hover:scale-125 transition-transform"></i>
+                    <h3 class="text-white text-xl mb-4">Subestaciones</h3>
+                    <p class="text-lavender/40 text-sm leading-relaxed">Montaje, transformación y automatización de subestaciones industriales y hospitalarias.</p>
+                </div>
+                <!-- Service 3 -->
+                <div class="reveal group p-8 rounded-2xl border border-white/5 hover:border-gold/30 transition-all bg-white/5" style="transition-delay: 0.2s">
+                    <i data-lucide="sun" class="text-gold w-10 h-10 mb-6 group-hover:scale-125 transition-transform"></i>
+                    <h3 class="text-white text-xl mb-4">Alumbrado Público</h3>
+                    <p class="text-lavender/40 text-sm leading-relaxed">Diseño y ejecución de sistemas de iluminación inteligente para grandes superficies y municipios.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-footer-bg pt-20 pb-10 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="font-display text-2xl font-bold text-white mb-6 uppercase tracking-tighter">
+                SOL<span class="text-gold">É</span>CTRICA
+            </div>
+            <p class="text-lavender/40 text-sm mb-10">Construyendo el futuro energético de Colombia.</p>
+            <div class="pt-10 border-t border-white/5 text-lavender/20 text-xs uppercase tracking-widest">
+                © 2026 Soléctrica S.A.S. todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) navbar.classList.add('h-[60px]', 'shadow-2xl');
+            else navbar.classList.remove('h-[60px]', 'shadow-2xl');
+        });
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    </script>
+</body>
+</html>

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JESSY: Inteligencia Energética - Soléctrica S.A.S.</title>
+    <meta name="description" content="Descubre JESSY, el sistema de gestión energética inteligente de Soléctrica. Monitoreo IoT e IA para optimizar el consumo de tu empresa.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#1E1B39',
+                        gold: '#DFBD21',
+                        'gold-d': '#B89A10',
+                        lavender: '#CFCFDB',
+                        'off-white': '#F5F4F2',
+                        'footer-bg': '#14181C',
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #2A2737;
+            background-color: #F5F4F2;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .grid-lines {
+            background-image: linear-gradient(rgba(207, 207, 219, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(207, 207, 219, 0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .glass-dark {
+            background: rgba(30, 27, 57, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .text-gradient-gold {
+            background: linear-gradient(to right, #DFBD21, #F7E08B, #B89A10);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+        }
+        .dashboard-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(223, 189, 33, 0.3);
+        }
+
+        #mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out;
+            opacity: 0;
+        }
+        #mobile-menu.open {
+            max-height: 600px;
+            opacity: 1;
+        }
+
+        .jessy-ring {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border: 2px dashed rgba(223, 189, 33, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: rotate-ring 60s linear infinite;
+        }
+
+        @keyframes rotate-ring {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .stat-pulse {
+            animation: pulse-gold 2s infinite;
+        }
+
+        @keyframes pulse-gold {
+            0% { box-shadow: 0 0 0 0 rgba(223, 189, 33, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(223, 189, 33, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(223, 189, 33, 0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 h-[80px] glass-dark shadow-lg">
+        <div class="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2">
+                <span class="font-display text-2xl font-bold text-white tracking-tighter uppercase whitespace-nowrap">
+                    SOL<span class="text-gold">É</span>CTRICA
+                </span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="index.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Inicio</a>
+                <a href="nosotros.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Sobre Nosotros</a>
+                
+                <div class="relative group">
+                    <button class="flex items-center gap-1 text-gold text-sm font-medium transition-colors py-4">
+                        Soluciones <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                    </button>
+                    <div class="absolute top-full left-0 w-64 bg-white shadow-xl rounded-b-lg overflow-hidden py-2 text-left">
+                        <a href="herramienta.html" class="block px-4 py-3 hover:bg-off-white bg-off-white/50 transition-colors">
+                            <div class="text-navy font-bold text-sm flex items-center gap-2">
+                                <span class="text-gold">◆</span> Herramienta (Jessy)
+                            </div>
+                            <div class="text-gray-500 text-xs mt-1">Monitoreo IoT + IA</div>
+                        </a>
+                        <a href="infraestructura.html" class="block px-4 py-3 hover:bg-off-white transition-colors">
+                            <div class="text-navy font-bold text-sm flex items-center gap-2">
+                                <span class="text-gold">◆</span> Infraestructura
+                            </div>
+                            <div class="text-gray-500 text-xs mt-1">Diseño y construcción</div>
+                        </a>
+                        <a href="generacion.html" class="block px-4 py-3 hover:bg-off-white transition-colors">
+                            <div class="text-navy font-bold text-sm flex items-center gap-2">
+                                <span class="text-gold">◆</span> Generación
+                            </div>
+                            <div class="text-gray-500 text-xs mt-1">Energía renovable</div>
+                        </a>
+                    </div>
+                </div>
+
+                <a href="proyectos.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Proyectos</a>
+                <a href="diagnostico.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Diagnóstico</a>
+                <a href="index.html#contacto" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Contacto</a>
+                <a href="diagnostico.html" class="bg-gold hover:bg-gold-d text-navy px-6 py-2 rounded-sm text-sm font-bold uppercase tracking-wider transition-all">
+                    Cotizar
+                </a>
+            </div>
+
+            <button id="menu-toggle" class="lg:hidden text-white"><i data-lucide="menu"></i></button>
+        </div>
+
+        <div id="mobile-menu" class="lg:hidden bg-navy border-t border-white/10">
+            <div class="px-6 py-8 flex flex-col gap-6">
+                <a href="index.html" class="mobile-link text-white text-lg font-medium">Inicio</a>
+                <a href="nosotros.html" class="mobile-link text-white text-lg font-medium">Sobre Nosotros</a>
+                <a href="herramienta.html" class="mobile-link text-gold text-lg font-medium">Herramienta (Jessy)</a>
+                <a href="infraestructura.html" class="mobile-link text-white text-lg font-medium">Infraestructura</a>
+                <a href="generacion.html" class="mobile-link text-white text-lg font-medium">Generación</a>
+                <a href="proyectos.html" class="mobile-link text-white text-lg font-medium">Proyectos</a>
+                <a href="diagnostico.html" class="mobile-link text-white text-lg font-medium">Diagnóstico</a>
+                <a href="index.html#contacto" class="mobile-link text-white text-lg font-medium">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-48 pb-32 bg-navy overflow-hidden min-h-[90vh] flex items-center">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 grid-lines opacity-10"></div>
+            <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-gold/5 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2"></div>
+            <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-navy/20 blur-[100px] rounded-full -translate-x-1/2 translate-y-1/2"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-10 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <div class="inline-block glass border-gold/30 bg-gold/10 px-4 py-1 rounded-full mb-8">
+                        <span class="text-gold font-bold text-[10px] uppercase tracking-[0.3em]">IA + IoT Ecosystem</span>
+                    </div>
+                    <h1 class="text-white text-5xl md:text-7xl lg:text-8xl leading-none mb-8 font-display">
+                        JESSY: EL <span class="text-gradient-gold">CEREBRO</span> DE TU ENERGÍA
+                    </h1>
+                    <p class="text-lavender/70 text-xl font-light mb-12 leading-relaxed max-w-xl">
+                        No permitas que tu empresa siga perdiendo dinero en ineficiencias invisibles. JESSY monitorea, analiza y toma decisiones inteligentes para maximizar tu ahorro en tiempo real.
+                    </p>
+                    <div class="flex flex-wrap gap-6">
+                        <a href="#dashboard" class="bg-gold hover:bg-gold-d text-navy px-8 py-4 rounded-sm font-bold uppercase transition-all flex items-center gap-3">
+                            Ver Dashboard <i data-lucide="eye" class="w-5 h-5"></i>
+                        </a>
+                        <a href="diagnostico.html" class="glass text-white border-white/20 hover:bg-white/10 px-8 py-4 rounded-sm font-bold uppercase transition-all">
+                            Diagnóstico Gratis
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="reveal lg:flex justify-center hidden">
+                    <div class="relative">
+                        <div class="jessy-ring">
+                            <div class="absolute inset-0 flex items-center justify-center animate-pulse">
+                                <div class="w-48 h-48 bg-gold/10 rounded-full blur-2xl"></div>
+                            </div>
+                        </div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="bg-white/5 backdrop-blur-3xl border border-gold/40 p-8 rounded-full shadow-[0_0_100px_rgba(223,189,33,0.3)]">
+                                <i data-lucide="cpu" class="w-24 h-24 text-gold"></i>
+                            </div>
+                        </div>
+                        <!-- Floating metrics -->
+                        <div class="absolute -top-10 -right-10 glass px-6 py-4 rounded-2xl border-gold/20 stat-pulse">
+                            <span class="text-gold text-2xl font-bold block">99.8%</span>
+                            <span class="text-white/40 text-[10px] font-bold uppercase tracking-wider">Precisión</span>
+                        </div>
+                        <div class="absolute bottom-4 -left-20 glass px-6 py-4 rounded-2xl border-gold/20">
+                            <span class="text-gold text-2xl font-bold block">-35%</span>
+                            <span class="text-white/40 text-[10px] font-bold uppercase tracking-wider">Ahorro Promedio</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why JESSY? -->
+    <section class="py-32 bg-white relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-24 max-w-3xl mx-auto">
+                <div class="reveal text-gold-d text-xs font-bold uppercase tracking-[0.4em] mb-4">Ventajas Competitivas</div>
+                <h2 class="reveal text-navy text-4xl md:text-6xl mb-8">¿Por qué <span class="text-gold-d">JESSY</span> es diferente?</h2>
+                <p class="reveal text-gray-500 font-light text-lg">A diferencia de los medidores convencionales, JESSY utiliza algoritmos de aprendizaje profundo para entender el ADN energético de tu operación.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Advantage 1 -->
+                <div class="reveal p-10 bg-off-white rounded-3xl border border-navy/5 group hover:bg-navy transition-all duration-500">
+                    <div class="w-16 h-16 bg-gold/10 text-gold flex items-center justify-center rounded-2xl mb-8 group-hover:bg-gold group-hover:text-navy transition-all">
+                        <i data-lucide="zap" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-navy text-2xl mb-4 group-hover:text-white transition-colors">Detección de Fugas</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed group-hover:text-lavender/60 transition-colors">Identifica consumos vampiro y fallas en equipos antes de que se reflejen en una factura impagable.</p>
+                </div>
+                <!-- Advantage 2 -->
+                <div class="reveal p-10 bg-off-white rounded-3xl border border-navy/5 group hover:bg-navy transition-all duration-500">
+                    <div class="w-16 h-16 bg-gold/10 text-gold flex items-center justify-center rounded-2xl mb-8 group-hover:bg-gold group-hover:text-navy transition-all">
+                        <i data-lucide="clock" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-navy text-2xl mb-4 group-hover:text-white transition-colors">Gestión de Demanda</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed group-hover:text-lavender/60 transition-colors">Controla los picos de potencia reactiva y evita multas de los operadores de red automáticamente.</p>
+                </div>
+                <!-- Advantage 3 -->
+                <div class="reveal p-10 bg-off-white rounded-3xl border border-navy/5 group hover:bg-navy transition-all duration-500">
+                    <div class="w-16 h-16 bg-gold/10 text-gold flex items-center justify-center rounded-2xl mb-8 group-hover:bg-gold group-hover:text-navy transition-all">
+                        <i data-lucide="bar-chart" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-navy text-2xl mb-4 group-hover:text-white transition-colors">Mercado No Regulado</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed group-hover:text-lavender/60 transition-colors">Usa los datos de JESSY para negociar mejores tarifas directamente con los generadores de energía.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Showcase -->
+    <section id="dashboard" class="py-32 bg-navy relative overflow-hidden">
+        <div class="absolute inset-0 grid-lines opacity-10"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                <div class="lg:col-span-4 reveal">
+                    <h2 class="text-white text-4xl mb-8">Tu planta en <span class="text-gold">tus manos.</span></h2>
+                    <p class="text-lavender/60 mb-12 font-light leading-relaxed">
+                        Accede desde cualquier lugar del mundo. Un panel de control intuitivo diseñado para gerentes que toman decisiones basadas en datos.
+                    </p>
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-6 h-6 rounded-full bg-gold/20 flex items-center justify-center mt-1"><div class="w-2 h-2 bg-gold rounded-full"></div></div>
+                            <div>
+                                <h4 class="text-white font-bold text-sm">Alertas en Tiempo Real</h4>
+                                <p class="text-lavender/40 text-xs">Notificaciones vía WhatsApp y Email sobre consumos críticos.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-6 h-6 rounded-full bg-gold/20 flex items-center justify-center mt-1"><div class="w-2 h-2 bg-gold rounded-full"></div></div>
+                            <div>
+                                <h4 class="text-white font-bold text-sm">Reportes Automatizados</h4>
+                                <p class="text-lavender/40 text-xs">Informes semanales de eficiencia y cumplimiento de metas.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-6 h-6 rounded-full bg-gold/20 flex items-center justify-center mt-1"><div class="w-2 h-2 bg-gold rounded-full"></div></div>
+                            <div>
+                                <h4 class="text-white font-bold text-sm">Proyección de Gastos</h4>
+                                <p class="text-lavender/40 text-xs">IA que predice tu próxima factura con un 98% de acierto.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-8 reveal">
+                    <!-- Dashboard Mockup -->
+                    <div class="bg-gray-900/50 backdrop-blur-xl border border-white/10 rounded-3xl p-6 md:p-10 shadow-2xl">
+                        <div class="flex items-center justify-between mb-10">
+                            <div>
+                                <h3 class="text-white text-xl font-bold">Consumo Crítico</h3>
+                                <p class="text-gold text-[10px] font-bold uppercase tracking-widest">Planta de Producción Principal</p>
+                            </div>
+                            <div class="flex gap-2">
+                                <div class="w-3 h-3 rounded-full bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500 opacity-20"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500 opacity-20"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                            <div class="dashboard-card p-6">
+                                <span class="text-lavender/40 text-[10px] font-bold uppercase block mb-2">Potencia Actual</span>
+                                <div class="flex items-end gap-2">
+                                    <span class="text-white text-3xl font-bold">128.4</span>
+                                    <span class="text-gold text-xs font-bold pb-1">kW</span>
+                                </div>
+                            </div>
+                            <div class="dashboard-card p-6">
+                                <span class="text-lavender/40 text-[10px] font-bold uppercase block mb-2">Voltaje Prom.</span>
+                                <div class="flex items-end gap-2">
+                                    <span class="text-white text-3xl font-bold">208.5</span>
+                                    <span class="text-gold text-xs font-bold pb-1">V</span>
+                                </div>
+                            </div>
+                            <div class="dashboard-card p-6">
+                                <span class="text-lavender/40 text-[10px] font-bold uppercase block mb-2">F. Potencia</span>
+                                <div class="flex items-end gap-2">
+                                    <span class="text-white text-3xl font-bold text-red-400">0.82</span>
+                                    <i data-lucide="alert-triangle" class="text-red-400 w-5 h-5 pb-1"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="h-64 relative">
+                            <canvas id="liveChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="py-32 bg-off-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                <div class="reveal">
+                    <h2 class="text-navy text-4xl mb-8">Resultados que <span class="text-gold-d">Hablan</span></h2>
+                    <p class="text-gray-500 text-lg font-light leading-relaxed mb-12">
+                        En promedio, las empresas que implementan JESSY logran identificar un **15% de ahorro** solo en los primeros 3 meses mediante la corrección de hábitos y fallas ocultas.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-8">
+                        <div>
+                            <span class="text-navy text-5xl font-black block mb-2">24h</span>
+                            <p class="text-gray-400 text-xs font-bold uppercase tracking-widest">Tiempo de Instalación</p>
+                        </div>
+                        <div>
+                            <span class="text-navy text-5xl font-black block mb-2">-15%</span>
+                            <p class="text-gray-400 text-xs font-bold uppercase tracking-widest">Ahorro Inmediato</p>
+                        </div>
+                        <div>
+                            <span class="text-navy text-5xl font-black block mb-2">2x</span>
+                            <p class="text-gray-400 text-xs font-bold uppercase tracking-widest">Vida Útil Equipos</p>
+                        </div>
+                        <div>
+                            <span class="text-navy text-5xl font-black block mb-2">100%</span>
+                            <p class="text-gray-400 text-xs font-bold uppercase tracking-widest">Control Digital</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="reveal bg-white p-10 rounded-3xl shadow-xl border border-navy/5">
+                    <h3 class="text-navy text-xl mb-8 text-center">Impacto en la Factura Mensual (COP)</h3>
+                    <div class="h-80">
+                        <canvas id="savingsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-24 bg-navy relative overflow-hidden">
+        <div class="absolute inset-0 grid-lines opacity-10"></div>
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <h2 class="text-white text-4xl md:text-6xl mb-8 mb-12 leading-tight">¿Listo para tomar el <span class="text-gold">control?</span></h2>
+            <p class="text-lavender/60 text-lg mb-12 font-light">Solicita una demostración personalizada de JESSY y descubre el potencial de ahorro de tu infraestructura.</p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                <a href="diagnostico.html" class="bg-gold hover:bg-gold-d text-navy px-10 py-5 rounded-sm font-bold uppercase tracking-wider transition-all">
+                    Solicitar Demo
+                </a>
+                <a href="index.html#contacto" class="glass border-white/20 text-white hover:bg-white/10 px-10 py-5 rounded-sm font-bold uppercase tracking-wider transition-all">
+                    Hablar con un Experto
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-footer-bg pt-20 pb-10 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-16 mb-20">
+                <div class="space-y-8">
+                    <div class="space-y-6">
+                        <div class="font-display text-2xl font-bold text-white tracking-tighter uppercase whitespace-nowrap">
+                            SOL<span class="text-gold">É</span>CTRICA
+                        </div>
+                        <p class="text-lavender/40 text-sm leading-relaxed">
+                            Transformamos la energía en ventaja competitiva para las empresas colombianas. Control inteligente e infraestructura del futuro.
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold uppercase tracking-widest text-xs mb-6">Contacto</h4>
+                    <ul class="space-y-4 text-lavender/40 text-sm">
+                        <li class="flex items-center gap-3"><i data-lucide="mail" class="w-4 h-4 text-gold"></i> contacto@solectrica.com</li>
+                        <li class="flex items-center gap-3"><i data-lucide="phone" class="w-4 h-4 text-gold"></i> +57 300 876 0151</li>
+                        <li class="flex items-center gap-3"><i data-lucide="map-pin" class="w-4 h-4 text-gold"></i> Bucaramanga, Colombia</li>
+                    </ul>
+                </div>
+                <div class="space-y-8">
+                    <div>
+                        <h4 class="text-white font-bold uppercase tracking-widest text-xs mb-6">Legal</h4>
+                        <ul class="space-y-4 text-lavender/40 text-sm">
+                            <li><a href="#" class="hover:text-gold transition-colors">Privacidad</a></li>
+                            <li><a href="#" class="hover:text-gold transition-colors">Términos</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-white text-sm font-bold tracking-wide">
+                    © 2026 Soléctrica S.A.S. Todos los derechos reservados. | <a href="https://agenciavigrafik.com.co/" target="_blank" rel="noopener noreferrer" class="text-gold hover:underline">Creado por Agencia ViGrafik</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('h-[60px]', 'shadow-2xl');
+            } else {
+                navbar.classList.remove('h-[60px]', 'shadow-2xl');
+            }
+        });
+
+        // Mobile Menu
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+
+        // Reveal animations
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // Live Dashboard Chart
+        const liveCtx = document.getElementById('liveChart').getContext('2d');
+        new Chart(liveCtx, {
+            type: 'line',
+            data: {
+                labels: ['10:00', '10:05', '10:10', '10:15', '10:20', '10:25', '10:30'],
+                datasets: [{
+                    label: 'Consumo kW',
+                    data: [120, 135, 125, 145, 180, 160, 128],
+                    borderColor: '#DFBD21',
+                    backgroundColor: 'rgba(223, 189, 33, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#DFBD21'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { display: false }, ticks: { color: 'rgba(255,255,255,0.4)' } },
+                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: 'rgba(255,255,255,0.4)' } }
+                }
+            }
+        });
+
+        // Savings Comparison Chart
+        const savingsCtx = document.getElementById('savingsChart').getContext('2d');
+        new Chart(savingsCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Mes 1', 'Mes 2', 'Mes 3', 'Mes 4', 'Mes 5'],
+                datasets: [
+                    {
+                        label: 'Sin JESSY',
+                        data: [1000000, 1050000, 980000, 1100000, 1020000],
+                        backgroundColor: '#1E1B39',
+                        borderRadius: 8
+                    },
+                    {
+                        label: 'Con JESSY',
+                        data: [950000, 840000, 810000, 780000, 760000],
+                        backgroundColor: '#DFBD21',
+                        borderRadius: 8
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom' } },
+                scales: {
+                    y: { 
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

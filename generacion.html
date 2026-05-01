@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generación e Inversión Energética - Soléctrica S.A.S.</title>
+    <meta name="description" content="Estructuramos proyectos de generación solar y renovables. Invierte en energía limpia y reduce tu dependencia de la red.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#1E1B39',
+                        gold: '#DFBD21',
+                        'gold-d': '#B89A10',
+                        lavender: '#CFCFDB',
+                        'off-white': '#F5F4F2',
+                        'footer-bg': '#14181C',
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #2A2737;
+            background-color: #F5F4F2;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .grid-lines {
+            background-image: linear-gradient(rgba(207, 207, 219, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(207, 207, 219, 0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .glass-dark {
+            background: rgba(30, 27, 57, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .text-gradient-gold {
+            background: linear-gradient(to right, #DFBD21, #F7E08B, #B89A10);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out;
+            opacity: 0;
+        }
+        #mobile-menu.open {
+            max-height: 600px;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 h-[80px] glass-dark shadow-lg">
+        <div class="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2">
+                <span class="font-display text-2xl font-bold text-white tracking-tighter uppercase whitespace-nowrap">
+                    SOL<span class="text-gold">É</span>CTRICA
+                </span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="index.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Inicio</a>
+                <a href="nosotros.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Sobre Nosotros</a>
+                
+                <div class="relative group">
+                    <button class="flex items-center gap-1 text-gold text-sm font-medium transition-colors py-4">
+                        Soluciones <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                    </button>
+                    <div class="absolute top-full left-0 w-64 bg-white shadow-xl rounded-b-lg overflow-hidden py-2 text-left">
+                        <a href="herramienta.html" class="block px-4 py-3 hover:bg-off-white transition-colors">
+                            <div class="text-navy font-bold text-sm flex items-center gap-2">
+                                <span class="text-gold">◆</span> Herramienta (Jessy)
+                            </div>
+                            <div class="text-gray-500 text-xs mt-1">Monitoreo IoT + IA</div>
+                        </a>
+                        <a href="infraestructura.html" class="block px-4 py-3 hover:bg-off-white transition-colors">
+                            <div class="text-navy font-bold text-sm flex items-center gap-2">
+                                <span class="text-gold">◆</span> Infraestructura
+                            </div>
+                            <div class="text-gray-500 text-xs mt-1">Diseño y construcción</div>
+                        </a>
+                        <a href="generacion.html" class="block px-4 py-3 hover:bg-off-white bg-off-white/50 transition-colors">
+                            <div class="text-navy font-bold text-sm flex items-center gap-2">
+                                <span class="text-gold">◆</span> Generación
+                            </div>
+                            <div class="text-gray-500 text-xs mt-1">Energía renovable</div>
+                        </a>
+                    </div>
+                </div>
+
+                <a href="proyectos.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Proyectos</a>
+                <a href="diagnostico.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Diagnóstico</a>
+                <a href="index.html#contacto" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Contacto</a>
+                <a href="diagnostico.html" class="bg-gold hover:bg-gold-d text-navy px-6 py-2 rounded-sm text-sm font-bold uppercase tracking-wider transition-all">
+                    Cotizar
+                </a>
+            </div>
+
+            <button id="menu-toggle" class="lg:hidden text-white"><i data-lucide="menu"></i></button>
+        </div>
+
+        <div id="mobile-menu" class="lg:hidden bg-navy border-t border-white/10">
+            <div class="px-6 py-8 flex flex-col gap-6 text-white text-lg font-medium">
+                <a href="index.html">Inicio</a>
+                <a href="nosotros.html">Sobre Nosotros</a>
+                <a href="herramienta.html">Herramienta (Jessy)</a>
+                <a href="infraestructura.html">Infraestructura</a>
+                <a href="generacion.html" class="text-gold">Generación</a>
+                <a href="proyectos.html">Proyectos</a>
+                <a href="diagnostico.html">Diagnóstico</a>
+                <a href="index.html#contacto">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="relative pt-48 pb-32 bg-navy overflow-hidden min-h-[70vh] flex items-center">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 grid-lines opacity-10"></div>
+            <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-navy via-navy/80 to-transparent z-10"></div>
+            <img src="https://images.unsplash.com/photo-1509391366360-fe5bb65858bb?auto=format&fit=crop&q=80&w=2000" alt="Solar Panels" class="absolute inset-0 w-full h-full object-cover">
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-20">
+            <div class="reveal inline-block border border-gold/30 bg-gold/10 px-4 py-1 rounded-full mb-8">
+                <span class="text-gold font-bold text-[10px] uppercase tracking-[0.3em]">TRANSICIÓN ENERGÉTICA</span>
+            </div>
+            <h1 class="reveal text-white text-5xl md:text-7xl lg:text-8xl max-w-4xl leading-tight mb-8">
+                PRODUCE TU <span class="text-gradient-gold">PROPIA</span> ENERGÍA
+            </h1>
+            <p class="reveal text-lavender/70 text-xl font-light max-w-2xl leading-relaxed">
+                Estructuramos proyectos de generación fotovoltaica que transforman tus techos en activos financieros, reduciendo costos operativos y huella de carbono.
+            </p>
+        </div>
+    </section>
+
+    <!-- Investment Pillars -->
+    <section class="py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-24 max-w-2xl mx-auto">
+                <h2 class="text-navy text-4xl md:text-5xl mb-6 leading-tight">Inversión <span class="text-gold-d">Inteligente</span></h2>
+                <p class="text-gray-500">Un proyecto solar no es solo ecología, es una decisión financiera de alto impacto con retornos garantizados.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Pillar 1 -->
+                <div class="reveal p-8 bg-off-white rounded-3xl border border-navy/5 text-center group hover:-translate-y-2 transition-transform duration-500">
+                    <div class="w-16 h-16 bg-gold/10 text-gold flex items-center justify-center rounded-2xl mx-auto mb-6 group-hover:bg-navy group-hover:text-gold transition-colors">
+                        <i data-lucide="trending-down"></i>
+                    </div>
+                    <h3 class="text-navy font-bold mb-3">Reducción Directa</h3>
+                    <p class="text-gray-500 text-xs">Ahorros inmediatos en el costo del kWh desde el primer día de conexión.</p>
+                </div>
+                <!-- Pillar 2 -->
+                <div class="reveal p-8 bg-off-white rounded-3xl border border-navy/5 text-center group hover:-translate-y-2 transition-transform duration-500" style="transition-delay: 0.1s">
+                    <div class="w-16 h-16 bg-gold/10 text-gold flex items-center justify-center rounded-2xl mx-auto mb-6 group-hover:bg-navy group-hover:text-gold transition-colors">
+                        <i data-lucide="percent"></i>
+                    </div>
+                    <h3 class="text-navy font-bold mb-3">Beneficios Ley 1715</h3>
+                    <p class="text-gray-500 text-xs">Deducciones de impuestos y beneficios arancelarios por invertir en renovables.</p>
+                </div>
+                <!-- Pillar 3 -->
+                <div class="reveal p-8 bg-off-white rounded-3xl border border-navy/5 text-center group hover:-translate-y-2 transition-transform duration-500" style="transition-delay: 0.2s">
+                    <div class="w-16 h-16 bg-gold/10 text-gold flex items-center justify-center rounded-2xl mx-auto mb-6 group-hover:bg-navy group-hover:text-gold transition-colors">
+                        <i data-lucide="leaf"></i>
+                    </div>
+                    <h3 class="text-navy font-bold mb-3">Sello Verde</h3>
+                    <p class="text-gray-500 text-xs">Posiciona tu marca como una empresa responsable con el medio ambiente.</p>
+                </div>
+                <!-- Pillar 4 -->
+                <div class="reveal p-8 bg-off-white rounded-3xl border border-navy/5 text-center group hover:-translate-y-2 transition-transform duration-500" style="transition-delay: 0.3s">
+                    <div class="w-16 h-16 bg-gold/10 text-gold flex items-center justify-center rounded-2xl mx-auto mb-6 group-hover:bg-navy group-hover:text-gold transition-colors">
+                        <i data-lucide="shield"></i>
+                    </div>
+                    <h3 class="text-navy font-bold mb-3">Cobertura Energética</h3>
+                    <p class="text-gray-500 text-xs">Seguridad ante la volatilidad de los precios del mercado energético nacional.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solar Process -->
+    <section class="py-32 bg-navy relative overflow-hidden">
+        <div class="absolute inset-0 grid-lines opacity-10"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                <div class="reveal order-2 lg:order-1">
+                    <div class="grid grid-cols-1 gap-6">
+                        <div class="p-8 border border-white/5 rounded-2xl flex gap-6 hover:bg-white/5 transition-colors">
+                            <span class="text-gold text-4xl font-black">01.</span>
+                            <div>
+                                <h4 class="text-white font-bold text-lg mb-2">Análisis de Viabilidad</h4>
+                                <p class="text-lavender/40 text-sm">Estudio técnico y financiero detallado de tu ubicación y consumo histórico.</p>
+                            </div>
+                        </div>
+                        <div class="p-8 border border-white/5 bg-white/5 rounded-2xl flex gap-6">
+                            <span class="text-gold text-4xl font-black">02.</span>
+                            <div>
+                                <h4 class="text-white font-bold text-lg mb-2">Ingeniería y Trámites</h4>
+                                <p class="text-lavender/40 text-sm">Gestión completa ante el operador de red para la conexión bidireccional.</p>
+                            </div>
+                        </div>
+                        <div class="p-8 border border-white/5 rounded-2xl flex gap-6 hover:bg-white/5 transition-colors">
+                            <span class="text-gold text-4xl font-black">03.</span>
+                            <div>
+                                <h4 class="text-white font-bold text-lg mb-2">Ejecución y Operación</h4>
+                                <p class="text-lavender/40 text-sm">Instalación certificada y puesta en marcha con monitoreo remoto integrado.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="reveal order-1 lg:order-2">
+                    <h2 class="text-white text-4xl md:text-5xl mb-8 leading-tight">De consumidor a <span class="text-gold">Prosumidor.</span></h2>
+                    <p class="text-lavender/60 text-lg font-light leading-relaxed mb-10">
+                        Te acompañamos en todo el proceso para que dejes de ser simplemente un comprador de energía y te conviertas en un productor independiente.
+                    </p>
+                    <a href="diagnostico.html" class="bg-gold hover:bg-gold-d text-navy px-10 py-5 rounded-sm font-bold uppercase tracking-wider transition-all inline-block">
+                        Calcular mi potencial solar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-footer-bg pt-20 pb-10 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="font-display text-2xl font-bold text-white mb-6 uppercase tracking-tighter">
+                SOL<span class="text-gold">É</span>CTRICA
+            </div>
+            <p class="text-lavender/40 text-sm mb-10">Energía solar para el progreso de Colombia.</p>
+            <div class="pt-10 border-t border-white/5 text-lavender/20 text-xs uppercase tracking-widest">
+                © 2026 Soléctrica S.A.S. todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) navbar.classList.add('h-[60px]', 'shadow-2xl');
+            else navbar.classList.remove('h-[60px]', 'shadow-2xl');
+        });
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    </script>
+</body>
+</html>
