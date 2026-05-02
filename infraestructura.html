@@ -14,6 +14,7 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <script>
         tailwind.config = {
@@ -89,6 +90,18 @@
             max-height: 600px;
             opacity: 1;
         }
+        /* Dropdown transition */
+        #solutions-dropdown {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+        .group:hover #solutions-dropdown {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
@@ -96,7 +109,7 @@
     <!-- Navbar -->
     <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 h-[80px] glass-dark shadow-lg">
         <div class="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
-            <a href="index.html" class="flex items-center gap-2">
+            <a href="/" class="flex items-center gap-2">
                 <span class="font-display text-2xl font-bold text-white tracking-tighter uppercase whitespace-nowrap">
                     SOL<span class="text-gold">É</span>CTRICA
                 </span>
@@ -104,27 +117,27 @@
 
             <!-- Desktop Menu -->
             <div class="hidden lg:flex items-center gap-8">
-                <a href="index.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Inicio</a>
-                <a href="nosotros.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Sobre Nosotros</a>
+                <a href="/" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Inicio</a>
+                <a href="nosotros" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Sobre Nosotros</a>
                 
                 <div class="relative group">
                     <button class="flex items-center gap-1 text-gold text-sm font-medium transition-colors py-4">
                         Soluciones <i data-lucide="chevron-down" class="w-4 h-4"></i>
                     </button>
-                    <div class="absolute top-full left-0 w-64 bg-white shadow-xl rounded-b-lg overflow-hidden py-2 text-left">
-                        <a href="herramienta.html" class="block px-4 py-3 hover:bg-off-white transition-colors">
+                    <div id="solutions-dropdown" class="absolute top-full left-0 w-64 bg-white shadow-xl rounded-b-lg overflow-hidden py-2 text-left">
+                        <a href="herramienta" class="block px-4 py-3 hover:bg-off-white transition-colors">
                             <div class="text-navy font-bold text-sm flex items-center gap-2">
                                 <span class="text-gold">◆</span> Herramienta (Jessy)
                             </div>
                             <div class="text-gray-500 text-xs mt-1">Monitoreo IoT + IA</div>
                         </a>
-                        <a href="infraestructura.html" class="block px-4 py-3 hover:bg-off-white bg-off-white/50 transition-colors">
+                        <a href="infraestructura" class="block px-4 py-3 hover:bg-off-white bg-off-white/50 transition-colors">
                             <div class="text-navy font-bold text-sm flex items-center gap-2">
                                 <span class="text-gold">◆</span> Infraestructura
                             </div>
                             <div class="text-gray-500 text-xs mt-1">Diseño y construcción</div>
                         </a>
-                        <a href="generacion.html" class="block px-4 py-3 hover:bg-off-white transition-colors">
+                        <a href="generacion" class="block px-4 py-3 hover:bg-off-white transition-colors">
                             <div class="text-navy font-bold text-sm flex items-center gap-2">
                                 <span class="text-gold">◆</span> Generación
                             </div>
@@ -133,10 +146,10 @@
                     </div>
                 </div>
 
-                <a href="proyectos.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Proyectos</a>
-                <a href="diagnostico.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Diagnóstico</a>
-                <a href="index.html#contacto" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Contacto</a>
-                <a href="diagnostico.html" class="bg-gold hover:bg-gold-d text-navy px-6 py-2 rounded-sm text-sm font-bold uppercase tracking-wider transition-all">
+                <a href="proyectos" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Proyectos</a>
+                <a href="diagnostico" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Diagnóstico</a>
+                <a href="/#contacto" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Contacto</a>
+                <a href="diagnostico" class="bg-gold hover:bg-gold-d text-navy px-6 py-2 rounded-sm text-sm font-bold uppercase tracking-wider transition-all">
                     Cotizar
                 </a>
             </div>
@@ -146,14 +159,14 @@
 
         <div id="mobile-menu" class="lg:hidden bg-navy border-t border-white/10">
             <div class="px-6 py-8 flex flex-col gap-6 text-white text-lg font-medium">
-                <a href="index.html">Inicio</a>
-                <a href="nosotros.html">Sobre Nosotros</a>
-                <a href="herramienta.html">Herramienta (Jessy)</a>
-                <a href="infraestructura.html" class="text-gold">Infraestructura</a>
-                <a href="generacion.html">Generación</a>
-                <a href="proyectos.html">Proyectos</a>
-                <a href="diagnostico.html">Diagnóstico</a>
-                <a href="index.html#contacto">Contacto</a>
+                <a href="/">Inicio</a>
+                <a href="nosotros">Sobre Nosotros</a>
+                <a href="herramienta">Herramienta (Jessy)</a>
+                <a href="infraestructura" class="text-gold">Infraestructura</a>
+                <a href="generacion">Generación</a>
+                <a href="proyectos">Proyectos</a>
+                <a href="diagnostico">Diagnóstico</a>
+                <a href="/#contacto">Contacto</a>
             </div>
         </div>
     </nav>
@@ -253,6 +266,46 @@
         </div>
     </section>
 
+    <!-- Performance Analytics -->
+    <section class="py-32 bg-off-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 max-w-3xl mx-auto">
+                <h2 class="reveal text-navy text-4xl mb-6 font-bold">Análisis de <span class="text-gold-d">Rendimiento</span></h2>
+                <p class="reveal text-gray-500 font-light">Nuestras infraestructuras están diseñadas para la máxima eficiencia operacional, minimizando desperdicios y asegurando estabilidad crítica.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Losses Chart -->
+                <div class="reveal bg-white p-8 md:p-10 rounded-3xl shadow-xl border border-navy/5">
+                    <h3 class="text-navy text-xl font-bold mb-8 flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gold/10 text-gold flex items-center justify-center rounded-lg">
+                            <i data-lucide="zap-off" class="w-5 h-5"></i>
+                        </div>
+                        Pérdidas Técnicas
+                    </h3>
+                    <div class="h-80">
+                        <canvas id="lossesChart"></canvas>
+                    </div>
+                    <p class="mt-6 text-gray-400 text-sm">Reducción proyectada de pérdidas energéticas mediante optimización de redes y subestaciones.</p>
+                </div>
+
+                <!-- Stability Chart -->
+                <div class="reveal bg-white p-8 md:p-10 rounded-3xl shadow-xl border border-navy/5">
+                    <h3 class="text-navy text-xl font-bold mb-8 flex items-center gap-3">
+                        <div class="w-10 h-10 bg-navy/10 text-navy flex items-center justify-center rounded-lg">
+                            <i data-lucide="activity" class="w-5 h-5"></i>
+                        </div>
+                        Estabilidad del Sistema
+                    </h3>
+                    <div class="h-80">
+                        <canvas id="stabilityChart"></canvas>
+                    </div>
+                    <p class="mt-6 text-gray-400 text-sm">Mejora en la regulación de voltaje y reducción de micro-cortes tras la modernización.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="bg-footer-bg pt-20 pb-10 border-t border-white/5">
         <div class="max-w-7xl mx-auto px-6 text-center">
@@ -277,6 +330,80 @@
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // Losses Comparison Chart
+        const lossesCtx = document.getElementById('lossesChart').getContext('2d');
+        new Chart(lossesCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Estándar Industrial', 'Optimización Soléctrica', 'Meta RETIE Plus'],
+                datasets: [{
+                    label: '% de Pérdidas',
+                    data: [8.5, 4.2, 2.8],
+                    backgroundColor: ['rgba(30, 27, 57, 0.1)', '#DFBD21', 'rgba(223, 189, 33, 0.5)'],
+                    borderRadius: 8,
+                    barThickness: 40
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { 
+                        beginAtZero: true,
+                        ticks: { callback: v => v + '%' }
+                    }
+                }
+            }
+        });
+
+        // Stability Data Chart
+        const stabilityCtx = document.getElementById('stabilityChart').getContext('2d');
+        new Chart(stabilityCtx, {
+            type: 'line',
+            data: {
+                labels: ['0h', '4h', '8h', '12h', '16h', '20h', '24h'],
+                datasets: [
+                    {
+                        label: 'Voltaje Nominal',
+                        data: [208, 208, 208, 208, 208, 208, 208],
+                        borderColor: 'rgba(30, 27, 57, 0.2)',
+                        borderDash: [5, 5],
+                        borderWidth: 1,
+                        pointRadius: 0,
+                        fill: false
+                    },
+                    {
+                        label: 'Sistema Modernizado',
+                        data: [207.5, 208.2, 207.8, 208.5, 208.1, 207.9, 208.3],
+                        borderColor: '#DFBD21',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: false
+                    },
+                    {
+                        label: 'Sistema Obsoleto',
+                        data: [202, 215, 198, 212, 195, 208, 190],
+                        borderColor: 'rgba(255, 99, 132, 0.5)',
+                        borderWidth: 1.5,
+                        tension: 0.1,
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { 
+                        min: 180,
+                        max: 230,
+                        ticks: { callback: v => v + 'V' }
+                    }
+                }
+            }
+        });
     </script>
 </body>
 </html>

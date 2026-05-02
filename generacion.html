@@ -14,6 +14,7 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <script>
         tailwind.config = {
@@ -79,6 +80,50 @@
             transform: translateY(0);
         }
 
+        /* Tooltip styles */
+        .tooltip-container {
+            position: relative;
+        }
+        .tooltip-text {
+            visibility: hidden;
+            width: 240px;
+            background-color: #1E1B39;
+            color: #fff;
+            text-align: center;
+            border-radius: 12px;
+            padding: 16px;
+            position: absolute;
+            z-index: 50;
+            bottom: 110%;
+            left: 50%;
+            margin-left: -120px;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            transform: translateY(10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            font-size: 11px;
+            font-weight: 400;
+            line-height: 1.5;
+            text-transform: none;
+            letter-spacing: normal;
+            pointer-events: none;
+        }
+        .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #1E1B39 transparent transparent transparent;
+        }
+        .tooltip-container:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         #mobile-menu {
             max-height: 0;
             overflow: hidden;
@@ -89,6 +134,18 @@
             max-height: 600px;
             opacity: 1;
         }
+        /* Dropdown transition */
+        #solutions-dropdown {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+        .group:hover #solutions-dropdown {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
@@ -96,7 +153,7 @@
     <!-- Navbar -->
     <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 h-[80px] glass-dark shadow-lg">
         <div class="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
-            <a href="index.html" class="flex items-center gap-2">
+            <a href="/" class="flex items-center gap-2">
                 <span class="font-display text-2xl font-bold text-white tracking-tighter uppercase whitespace-nowrap">
                     SOL<span class="text-gold">É</span>CTRICA
                 </span>
@@ -104,27 +161,27 @@
 
             <!-- Desktop Menu -->
             <div class="hidden lg:flex items-center gap-8">
-                <a href="index.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Inicio</a>
-                <a href="nosotros.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Sobre Nosotros</a>
+                <a href="/" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Inicio</a>
+                <a href="nosotros" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Sobre Nosotros</a>
                 
                 <div class="relative group">
                     <button class="flex items-center gap-1 text-gold text-sm font-medium transition-colors py-4">
                         Soluciones <i data-lucide="chevron-down" class="w-4 h-4"></i>
                     </button>
-                    <div class="absolute top-full left-0 w-64 bg-white shadow-xl rounded-b-lg overflow-hidden py-2 text-left">
-                        <a href="herramienta.html" class="block px-4 py-3 hover:bg-off-white transition-colors">
+                    <div id="solutions-dropdown" class="absolute top-full left-0 w-64 bg-white shadow-xl rounded-b-lg overflow-hidden py-2 text-left">
+                        <a href="herramienta" class="block px-4 py-3 hover:bg-off-white transition-colors">
                             <div class="text-navy font-bold text-sm flex items-center gap-2">
                                 <span class="text-gold">◆</span> Herramienta (Jessy)
                             </div>
                             <div class="text-gray-500 text-xs mt-1">Monitoreo IoT + IA</div>
                         </a>
-                        <a href="infraestructura.html" class="block px-4 py-3 hover:bg-off-white transition-colors">
+                        <a href="infraestructura" class="block px-4 py-3 hover:bg-off-white transition-colors">
                             <div class="text-navy font-bold text-sm flex items-center gap-2">
                                 <span class="text-gold">◆</span> Infraestructura
                             </div>
                             <div class="text-gray-500 text-xs mt-1">Diseño y construcción</div>
                         </a>
-                        <a href="generacion.html" class="block px-4 py-3 hover:bg-off-white bg-off-white/50 transition-colors">
+                        <a href="generacion" class="block px-4 py-3 hover:bg-off-white bg-off-white/50 transition-colors">
                             <div class="text-navy font-bold text-sm flex items-center gap-2">
                                 <span class="text-gold">◆</span> Generación
                             </div>
@@ -133,10 +190,10 @@
                     </div>
                 </div>
 
-                <a href="proyectos.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Proyectos</a>
-                <a href="diagnostico.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Diagnóstico</a>
-                <a href="index.html#contacto" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Contacto</a>
-                <a href="diagnostico.html" class="bg-gold hover:bg-gold-d text-navy px-6 py-2 rounded-sm text-sm font-bold uppercase tracking-wider transition-all">
+                <a href="proyectos" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Proyectos</a>
+                <a href="diagnostico" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Diagnóstico</a>
+                <a href="/#contacto" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Contacto</a>
+                <a href="diagnostico" class="bg-gold hover:bg-gold-d text-navy px-6 py-2 rounded-sm text-sm font-bold uppercase tracking-wider transition-all">
                     Cotizar
                 </a>
             </div>
@@ -146,14 +203,14 @@
 
         <div id="mobile-menu" class="lg:hidden bg-navy border-t border-white/10">
             <div class="px-6 py-8 flex flex-col gap-6 text-white text-lg font-medium">
-                <a href="index.html">Inicio</a>
-                <a href="nosotros.html">Sobre Nosotros</a>
-                <a href="herramienta.html">Herramienta (Jessy)</a>
-                <a href="infraestructura.html">Infraestructura</a>
-                <a href="generacion.html" class="text-gold">Generación</a>
-                <a href="proyectos.html">Proyectos</a>
-                <a href="diagnostico.html">Diagnóstico</a>
-                <a href="index.html#contacto">Contacto</a>
+                <a href="/">Inicio</a>
+                <a href="nosotros">Sobre Nosotros</a>
+                <a href="herramienta">Herramienta (Jessy)</a>
+                <a href="infraestructura">Infraestructura</a>
+                <a href="generacion" class="text-gold">Generación</a>
+                <a href="proyectos">Proyectos</a>
+                <a href="diagnostico">Diagnóstico</a>
+                <a href="/#contacto">Contacto</a>
             </div>
         </div>
     </nav>
@@ -193,7 +250,10 @@
                     <div class="w-16 h-16 bg-gold/10 text-gold flex items-center justify-center rounded-2xl mx-auto mb-6 group-hover:bg-navy group-hover:text-gold transition-colors">
                         <i data-lucide="trending-down"></i>
                     </div>
-                    <h3 class="text-navy font-bold mb-3">Reducción Directa</h3>
+                    <div class="tooltip-container">
+                        <h3 class="text-navy font-bold mb-3 cursor-help">Reducción Directa</h3>
+                        <div class="tooltip-text">Ahorro inmediato al sustituir la tarifa promedio del mercado por el costo de generación de tu propia planta. El retorno de inversión suele ser inferior a 4-6 años.</div>
+                    </div>
                     <p class="text-gray-500 text-xs">Ahorros inmediatos en el costo del kWh desde el primer día de conexión.</p>
                 </div>
                 <!-- Pillar 2 -->
@@ -201,7 +261,10 @@
                     <div class="w-16 h-16 bg-gold/10 text-gold flex items-center justify-center rounded-2xl mx-auto mb-6 group-hover:bg-navy group-hover:text-gold transition-colors">
                         <i data-lucide="percent"></i>
                     </div>
-                    <h3 class="text-navy font-bold mb-3">Beneficios Ley 1715</h3>
+                    <div class="tooltip-container">
+                        <h3 class="text-navy font-bold mb-3 cursor-help">Beneficios Ley 1715</h3>
+                        <div class="tooltip-text">Permite deducir hasta el 50% del valor de la inversión de tu renta líquida en un periodo de 15 años, además de exclusión de IVA y exención de aranceles.</div>
+                    </div>
                     <p class="text-gray-500 text-xs">Deducciones de impuestos y beneficios arancelarios por invertir en renovables.</p>
                 </div>
                 <!-- Pillar 3 -->
@@ -209,7 +272,10 @@
                     <div class="w-16 h-16 bg-gold/10 text-gold flex items-center justify-center rounded-2xl mx-auto mb-6 group-hover:bg-navy group-hover:text-gold transition-colors">
                         <i data-lucide="leaf"></i>
                     </div>
-                    <h3 class="text-navy font-bold mb-3">Sello Verde</h3>
+                    <div class="tooltip-container">
+                        <h3 class="text-navy font-bold mb-3 cursor-help">Sello Verde</h3>
+                        <div class="tooltip-text">Aumenta tu competitividad alineándote con los Objetivos de Desarrollo Sostenible (ODS). Mejora la valoración de activos y la percepción de marca ante clientes globales.</div>
+                    </div>
                     <p class="text-gray-500 text-xs">Posiciona tu marca como una empresa responsable con el medio ambiente.</p>
                 </div>
                 <!-- Pillar 4 -->
@@ -217,7 +283,10 @@
                     <div class="w-16 h-16 bg-gold/10 text-gold flex items-center justify-center rounded-2xl mx-auto mb-6 group-hover:bg-navy group-hover:text-gold transition-colors">
                         <i data-lucide="shield"></i>
                     </div>
-                    <h3 class="text-navy font-bold mb-3">Cobertura Energética</h3>
+                    <div class="tooltip-container">
+                        <h3 class="text-navy font-bold mb-3 cursor-help">Cobertura Energética</h3>
+                        <div class="tooltip-text">Inmuniza tu operación contra las alzas en las tarifas de energía proyectadas por la UPME. Fija tu costo energético por los próximos 25 años de vida útil.</div>
+                    </div>
                     <p class="text-gray-500 text-xs">Seguridad ante la volatilidad de los precios del mercado energético nacional.</p>
                 </div>
             </div>
@@ -260,9 +329,49 @@
                     <p class="text-lavender/60 text-lg font-light leading-relaxed mb-10">
                         Te acompañamos en todo el proceso para que dejes de ser simplemente un comprador de energía y te conviertas en un productor independiente.
                     </p>
-                    <a href="diagnostico.html" class="bg-gold hover:bg-gold-d text-navy px-10 py-5 rounded-sm font-bold uppercase tracking-wider transition-all inline-block">
+                    <a href="diagnostico" class="bg-gold hover:bg-gold-d text-navy px-10 py-5 rounded-sm font-bold uppercase tracking-wider transition-all inline-block">
                         Calcular mi potencial solar
                     </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Generation Analytics -->
+    <section class="py-32 bg-off-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 max-w-3xl mx-auto">
+                <h2 class="reveal text-navy text-4xl mb-6 font-bold">Analítica de <span class="text-gold-d">Generación</span></h2>
+                <p class="reveal text-gray-500 font-light">Perfil de producción solar típico y balance energético diario para una planta industrial en Colombia.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Yield Chart -->
+                <div class="reveal bg-white p-8 md:p-10 rounded-3xl shadow-xl border border-navy/5">
+                    <h3 class="text-navy text-xl font-bold mb-8 flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gold/10 text-gold flex items-center justify-center rounded-lg">
+                            <i data-lucide="sun" class="w-5 h-5"></i>
+                        </div>
+                        Producción Diaria (kWh)
+                    </h3>
+                    <div class="h-80">
+                        <canvas id="yieldChart"></canvas>
+                    </div>
+                    <p class="mt-6 text-gray-400 text-sm">Curva de generación solar vs Consumo industrial base. Sincronización de picos de carga.</p>
+                </div>
+
+                <!-- Cost Evolution Chart -->
+                <div class="reveal bg-white p-8 md:p-10 rounded-3xl shadow-xl border border-navy/5">
+                    <h3 class="text-navy text-xl font-bold mb-8 flex items-center gap-3">
+                        <div class="w-10 h-10 bg-navy/10 text-navy flex items-center justify-center rounded-lg">
+                            <i data-lucide="trending-up" class="w-5 h-5"></i>
+                        </div>
+                        Costo de Energía (kWh)
+                    </h3>
+                    <div class="h-80">
+                        <canvas id="costEvolutionChart"></canvas>
+                    </div>
+                    <p class="mt-6 text-gray-400 text-sm">Comparativa del costo energético proyectado entre la red convencional y la generación solar.</p>
                 </div>
             </div>
         </div>
@@ -292,6 +401,70 @@
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // Yield Chart
+        const yieldCtx = document.getElementById('yieldChart').getContext('2d');
+        new Chart(yieldCtx, {
+            type: 'line',
+            data: {
+                labels: ['6am', '8am', '10am', '12pm', '2pm', '4pm', '6pm'],
+                datasets: [
+                    {
+                        label: 'Generación Solar',
+                        data: [2, 15, 45, 60, 52, 28, 5],
+                        borderColor: '#DFBD21',
+                        backgroundColor: 'rgba(223, 189, 33, 0.2)',
+                        fill: true,
+                        tension: 0.4
+                    },
+                    {
+                        label: 'Consumo Industrial',
+                        data: [35, 35, 40, 38, 42, 38, 35],
+                        borderColor: '#1E1B39',
+                        borderDash: [5, 5],
+                        fill: false,
+                        tension: 0
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, ticks: { callback: v => v + ' kWh' } }
+                }
+            }
+        });
+
+        // Cost Evolution Chart
+        const costCtx = document.getElementById('costEvolutionChart').getContext('2d');
+        new Chart(costCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Hoy', 'Año 2', 'Año 4', 'Año 6'],
+                datasets: [
+                    {
+                        label: 'Tarifa Red (Proyectada)',
+                        data: [850, 950, 1100, 1300],
+                        backgroundColor: 'rgba(30, 27, 57, 0.1)',
+                        borderRadius: 8
+                    },
+                    {
+                        label: 'Costo Nivelado Solar',
+                        data: [250, 240, 230, 220],
+                        backgroundColor: '#DFBD21',
+                        borderRadius: 8
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { ticks: { callback: v => '$' + v } }
+                }
+            }
+        });
     </script>
 </body>
 </html>

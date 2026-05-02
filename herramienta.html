@@ -134,6 +134,18 @@
             70% { box-shadow: 0 0 0 10px rgba(223, 189, 33, 0); }
             100% { box-shadow: 0 0 0 0 rgba(223, 189, 33, 0); }
         }
+        /* Dropdown transition */
+        #solutions-dropdown {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+        .group:hover #solutions-dropdown {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
@@ -141,7 +153,7 @@
     <!-- Navbar -->
     <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 h-[80px] glass-dark shadow-lg">
         <div class="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
-            <a href="index.html" class="flex items-center gap-2">
+            <a href="/" class="flex items-center gap-2">
                 <span class="font-display text-2xl font-bold text-white tracking-tighter uppercase whitespace-nowrap">
                     SOL<span class="text-gold">É</span>CTRICA
                 </span>
@@ -149,27 +161,27 @@
 
             <!-- Desktop Menu -->
             <div class="hidden lg:flex items-center gap-8">
-                <a href="index.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Inicio</a>
-                <a href="nosotros.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Sobre Nosotros</a>
+                <a href="/" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Inicio</a>
+                <a href="nosotros" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Sobre Nosotros</a>
                 
                 <div class="relative group">
                     <button class="flex items-center gap-1 text-gold text-sm font-medium transition-colors py-4">
                         Soluciones <i data-lucide="chevron-down" class="w-4 h-4"></i>
                     </button>
-                    <div class="absolute top-full left-0 w-64 bg-white shadow-xl rounded-b-lg overflow-hidden py-2 text-left">
-                        <a href="herramienta.html" class="block px-4 py-3 hover:bg-off-white bg-off-white/50 transition-colors">
+                    <div id="solutions-dropdown" class="absolute top-full left-0 w-64 bg-white shadow-xl rounded-b-lg overflow-hidden py-2 text-left">
+                        <a href="herramienta" class="block px-4 py-3 hover:bg-off-white bg-off-white/50 transition-colors">
                             <div class="text-navy font-bold text-sm flex items-center gap-2">
                                 <span class="text-gold">◆</span> Herramienta (Jessy)
                             </div>
                             <div class="text-gray-500 text-xs mt-1">Monitoreo IoT + IA</div>
                         </a>
-                        <a href="infraestructura.html" class="block px-4 py-3 hover:bg-off-white transition-colors">
+                        <a href="infraestructura" class="block px-4 py-3 hover:bg-off-white transition-colors">
                             <div class="text-navy font-bold text-sm flex items-center gap-2">
                                 <span class="text-gold">◆</span> Infraestructura
                             </div>
                             <div class="text-gray-500 text-xs mt-1">Diseño y construcción</div>
                         </a>
-                        <a href="generacion.html" class="block px-4 py-3 hover:bg-off-white transition-colors">
+                        <a href="generacion" class="block px-4 py-3 hover:bg-off-white transition-colors">
                             <div class="text-navy font-bold text-sm flex items-center gap-2">
                                 <span class="text-gold">◆</span> Generación
                             </div>
@@ -178,10 +190,10 @@
                     </div>
                 </div>
 
-                <a href="proyectos.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Proyectos</a>
-                <a href="diagnostico.html" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Diagnóstico</a>
-                <a href="index.html#contacto" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Contacto</a>
-                <a href="diagnostico.html" class="bg-gold hover:bg-gold-d text-navy px-6 py-2 rounded-sm text-sm font-bold uppercase tracking-wider transition-all">
+                <a href="proyectos" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Proyectos</a>
+                <a href="diagnostico" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Diagnóstico</a>
+                <a href="/#contacto" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Contacto</a>
+                <a href="diagnostico" class="bg-gold hover:bg-gold-d text-navy px-6 py-2 rounded-sm text-sm font-bold uppercase tracking-wider transition-all">
                     Cotizar
                 </a>
             </div>
@@ -191,14 +203,14 @@
 
         <div id="mobile-menu" class="lg:hidden bg-navy border-t border-white/10">
             <div class="px-6 py-8 flex flex-col gap-6">
-                <a href="index.html" class="mobile-link text-white text-lg font-medium">Inicio</a>
-                <a href="nosotros.html" class="mobile-link text-white text-lg font-medium">Sobre Nosotros</a>
-                <a href="herramienta.html" class="mobile-link text-gold text-lg font-medium">Herramienta (Jessy)</a>
-                <a href="infraestructura.html" class="mobile-link text-white text-lg font-medium">Infraestructura</a>
-                <a href="generacion.html" class="mobile-link text-white text-lg font-medium">Generación</a>
-                <a href="proyectos.html" class="mobile-link text-white text-lg font-medium">Proyectos</a>
-                <a href="diagnostico.html" class="mobile-link text-white text-lg font-medium">Diagnóstico</a>
-                <a href="index.html#contacto" class="mobile-link text-white text-lg font-medium">Contacto</a>
+                <a href="/" class="mobile-link text-white text-lg font-medium">Inicio</a>
+                <a href="nosotros" class="mobile-link text-white text-lg font-medium">Sobre Nosotros</a>
+                <a href="herramienta" class="mobile-link text-gold text-lg font-medium">Herramienta (Jessy)</a>
+                <a href="infraestructura" class="mobile-link text-white text-lg font-medium">Infraestructura</a>
+                <a href="generacion" class="mobile-link text-white text-lg font-medium">Generación</a>
+                <a href="proyectos" class="mobile-link text-white text-lg font-medium">Proyectos</a>
+                <a href="diagnostico" class="mobile-link text-white text-lg font-medium">Diagnóstico</a>
+                <a href="/#contacto" class="mobile-link text-white text-lg font-medium">Contacto</a>
             </div>
         </div>
     </nav>
@@ -227,7 +239,7 @@
                         <a href="#dashboard" class="bg-gold hover:bg-gold-d text-navy px-8 py-4 rounded-sm font-bold uppercase transition-all flex items-center gap-3">
                             Ver Dashboard <i data-lucide="eye" class="w-5 h-5"></i>
                         </a>
-                        <a href="diagnostico.html" class="glass text-white border-white/20 hover:bg-white/10 px-8 py-4 rounded-sm font-bold uppercase transition-all">
+                        <a href="diagnostico" class="glass text-white border-white/20 hover:bg-white/10 px-8 py-4 rounded-sm font-bold uppercase transition-all">
                             Diagnóstico Gratis
                         </a>
                     </div>
@@ -414,7 +426,62 @@
                 <div class="reveal bg-white p-10 rounded-3xl shadow-xl border border-navy/5">
                     <h3 class="text-navy text-xl mb-8 text-center">Impacto en la Factura Mensual (COP)</h3>
                     <div class="h-80">
-                        <canvas id="savingsChart"></canvas>
+                        <canvas id="monthlySavingsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Long Term Projections -->
+    <section class="py-32 bg-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-20 max-w-3xl mx-auto">
+                <div class="reveal text-gold-d text-xs font-bold uppercase tracking-[0.4em] mb-4">Proyecciones a Futuro</div>
+                <h2 class="reveal text-navy text-4xl md:text-5xl mb-8">Maximiza tu <span class="text-gold-d">Rentabilidad</span> a Largo Plazo</h2>
+                <p class="reveal text-gray-500 font-light text-lg">Visualiza el retorno de inversión y el impacto ambiental positivo que JESSY y nuestras soluciones de generación proyectan para tu empresa en la próxima media década.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Savings Projection -->
+                <div class="reveal bg-off-white p-8 md:p-10 rounded-3xl border border-navy/5 shadow-inner">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-12 h-12 bg-gold/10 text-gold flex items-center justify-center rounded-xl">
+                            <i data-lucide="trending-up" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-navy text-xl font-bold">Ahorro Económico Acumulado</h3>
+                            <p class="text-gray-400 text-xs font-medium uppercase tracking-wider">Estimación a 5 Años (M COP)</p>
+                        </div>
+                    </div>
+                    <div class="h-[400px]">
+                        <canvas id="longTermSavingsChart"></canvas>
+                    </div>
+                    <div class="mt-8 p-4 bg-white/50 rounded-xl border border-gold/10">
+                        <p class="text-navy/70 text-sm font-medium">
+                            <span class="text-gold font-bold">Nota:</span> Basado en una optimización conservadora del 20% anual y el incremento proyectado de tarifas de energía.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- CO2 Reduction Projection -->
+                <div class="reveal bg-off-white p-8 md:p-10 rounded-3xl border border-navy/5 shadow-inner">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-12 h-12 bg-green-500/10 text-green-600 flex items-center justify-center rounded-xl">
+                            <i data-lucide="leaf" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-navy text-xl font-bold">Reducción de Huella de Carbono</h3>
+                            <p class="text-gray-400 text-xs font-medium uppercase tracking-wider">Kilogramos de CO2 evitados (Ton)</p>
+                        </div>
+                    </div>
+                    <div class="h-[400px]">
+                        <canvas id="co2ReductionChart"></canvas>
+                    </div>
+                    <div class="mt-8 p-4 bg-white/50 rounded-xl border border-green-500/10">
+                        <p class="text-navy/70 text-sm font-medium">
+                            <span class="text-green-600 font-bold">Nota:</span> Equivalente a plantar aproximadamente <span class="font-bold">120 árboles maduros</span> por cada año de operación.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -428,10 +495,10 @@
             <h2 class="text-white text-4xl md:text-6xl mb-8 mb-12 leading-tight">¿Listo para tomar el <span class="text-gold">control?</span></h2>
             <p class="text-lavender/60 text-lg mb-12 font-light">Solicita una demostración personalizada de JESSY y descubre el potencial de ahorro de tu infraestructura.</p>
             <div class="flex flex-col sm:flex-row gap-6 justify-center">
-                <a href="diagnostico.html" class="bg-gold hover:bg-gold-d text-navy px-10 py-5 rounded-sm font-bold uppercase tracking-wider transition-all">
+                <a href="diagnostico" class="bg-gold hover:bg-gold-d text-navy px-10 py-5 rounded-sm font-bold uppercase tracking-wider transition-all">
                     Solicitar Demo
                 </a>
-                <a href="index.html#contacto" class="glass border-white/20 text-white hover:bg-white/10 px-10 py-5 rounded-sm font-bold uppercase tracking-wider transition-all">
+                <a href="index#contacto" class="glass border-white/20 text-white hover:bg-white/10 px-10 py-5 rounded-sm font-bold uppercase tracking-wider transition-all">
                     Hablar con un Experto
                 </a>
             </div>
@@ -540,9 +607,9 @@
             }
         });
 
-        // Savings Comparison Chart
-        const savingsCtx = document.getElementById('savingsChart').getContext('2d');
-        new Chart(savingsCtx, {
+        // Savings Comparison Chart (Monthly)
+        const monthlySavingsCtx = document.getElementById('monthlySavingsChart').getContext('2d');
+        new Chart(monthlySavingsCtx, {
             type: 'bar',
             data: {
                 labels: ['Mes 1', 'Mes 2', 'Mes 3', 'Mes 4', 'Mes 5'],
@@ -573,6 +640,106 @@
                                 return '$' + value.toLocaleString();
                             }
                         }
+                    }
+                }
+            }
+        });
+
+        // 5-Year Savings Projection
+        const longTermSavingsCtx = document.getElementById('longTermSavingsChart').getContext('2d');
+        new Chart(longTermSavingsCtx, {
+            type: 'line',
+            data: {
+                labels: ['Año 1', 'Año 2', 'Año 3', 'Año 4', 'Año 5'],
+                datasets: [{
+                    label: 'Ahorro Acumulado (M COP)',
+                    data: [12, 32, 65, 108, 165],
+                    borderColor: '#DFBD21',
+                    backgroundColor: 'rgba(223, 189, 33, 0.2)',
+                    borderWidth: 4,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 6,
+                    pointBackgroundColor: '#1E1B39',
+                    pointBorderColor: '#DFBD21',
+                    pointBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return 'Ahorro: $' + context.raw + ' Millones COP';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(30, 27, 57, 0.05)' },
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value + 'M';
+                            }
+                        }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // 5-Year CO2 Reduction Projection
+        const co2Ctx = document.getElementById('co2ReductionChart').getContext('2d');
+        new Chart(co2Ctx, {
+            type: 'line',
+            data: {
+                labels: ['Año 1', 'Año 2', 'Año 3', 'Año 4', 'Año 5'],
+                datasets: [{
+                    label: 'CO2 Reducido (Toneladas)',
+                    data: [1.5, 3.8, 7.2, 12.5, 20.1],
+                    borderColor: '#22c55e',
+                    backgroundColor: 'rgba(34, 197, 94, 0.2)',
+                    borderWidth: 4,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 6,
+                    pointBackgroundColor: '#1E1B39',
+                    pointBorderColor: '#22c55e',
+                    pointBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return 'CO2 Evitado: ' + context.raw + ' Toneladas';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(30, 27, 57, 0.05)' },
+                        ticks: {
+                            callback: function(value) {
+                                return value + ' Ton';
+                            }
+                        }
+                    },
+                    x: {
+                        grid: { display: false }
                     }
                 }
             }
