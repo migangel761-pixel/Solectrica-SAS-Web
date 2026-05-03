@@ -188,7 +188,7 @@
 
                 <a href="proyectos" class="text-gold text-sm font-medium transition-colors">Proyectos</a>
                 <a href="diagnostico" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Diagnóstico</a>
-                <a href="#contacto" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Contacto</a>
+                <a href="/#contacto" class="text-lavender hover:text-gold text-sm font-medium transition-colors">Contacto</a>
                 <a href="diagnostico" class="bg-gold hover:bg-gold-d text-navy px-6 py-2 rounded-sm text-sm font-bold uppercase tracking-wider transition-all">
                     Cotizar Proyecto
                 </a>
@@ -215,7 +215,7 @@
                     </div>
                 </div>
                 <a href="diagnostico" class="mobile-link text-white text-lg font-medium">Diagnóstico</a>
-                <a href="#contacto" class="mobile-link text-white text-lg font-medium">Contacto</a>
+                <a href="/#contacto" class="mobile-link text-white text-lg font-medium">Contacto</a>
                 <a href="diagnostico" class="mobile-link bg-gold text-navy text-center py-3 rounded-sm font-bold uppercase tracking-wider">
                     Cotizar Proyecto
                 </a>
@@ -414,6 +414,11 @@
         </div>
     </footer>
 
+    <!-- WhatsApp Widget -->
+    <a href="https://wa.me/573008760151" target="_blank" class="fixed bottom-8 right-8 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform flex items-center justify-center">
+        <i data-lucide="message-circle" class="w-6 h-6"></i>
+    </a>
+
     <script>
         lucide.createIcons();
         const navbar = document.getElementById('navbar');
@@ -445,6 +450,5 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
     </script>
-    <script type="module" src="/src/chat-widget.ts"></script>
 </body>
 </html>

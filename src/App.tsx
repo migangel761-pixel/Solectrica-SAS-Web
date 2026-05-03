@@ -813,7 +813,7 @@ const Contact = () => {
         </div>
 
         <div className="mt-12 text-lavender/40 text-sm">
-          ¿Dudas? Pregúntele a Jessy, nuestra asistente virtual.
+          ¿Prefiere WhatsApp? <a href="https://wa.me/573008760151" className="text-gold hover:underline">+57 300 876 0151</a>
         </div>
       </div>
     </section>
@@ -888,6 +888,56 @@ const Footer = () => {
   );
 };
 
+const WhatsAppWidget = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [isClosed, setIsClosed] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!sessionStorage.getItem('wa-closed')) {
+        setIsVisible(true);
+      }
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleClose = () => {
+    setIsClosed(true);
+    sessionStorage.setItem('wa-closed', 'true');
+  };
+
+  if (isClosed) return null;
+
+  return (
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.8, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.8, y: 20 }}
+          className="fixed bottom-7 right-7 z-[100] flex items-center"
+        >
+          <a 
+            href="https://wa.me/573008760151?text=Hola%20Sol%C3%A9ctrica%2C%20quiero%20solicitar%20un%20diagn%C3%B3stico%20gratuito."
+            target="_blank"
+            rel="noreferrer"
+            className="bg-[#25D366] text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 hover:scale-105 transition-transform group"
+          >
+            <MessageCircle className="w-6 h-6 fill-white" />
+            <span className="font-bold text-sm uppercase tracking-wider">Diagnóstico gratuito</span>
+          </a>
+          <button 
+            onClick={handleClose}
+            className="absolute -top-2 -right-2 bg-navy text-white w-6 h-6 rounded-full flex items-center justify-center text-[10px] border border-white/10 shadow-lg"
+          >
+            ✕
+          </button>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
 const ScrollProgress = () => {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -922,6 +972,7 @@ export default function App() {
       </main>
 
       <Footer />
+      <WhatsAppWidget />
     </div>
   );
 }

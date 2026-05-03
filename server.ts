@@ -1,6 +1,5 @@
 import express from "express";
 import path from "path";
-import fs from "fs";
 import { fileURLToPath } from "url";
 import { createServer as createViteServer } from "vite";
 
@@ -10,8 +9,6 @@ const __dirname = path.dirname(__filename);
 async function startServer() {
   const app = express();
   const PORT = 3000;
-
-  app.use(express.json());
 
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {
@@ -24,28 +21,23 @@ async function startServer() {
 
     // Custom routing for .html files (clean URLs) in dev
     app.get("*", async (req, res, next) => {
-      const url = req.originalUrl.split('?')[0];
+      const url = req.originalUrl.split('?')[0]; // Remove query params
       
-      // Determine which HTML file to serve
-      let targetFile = "";
+      // If URL is root, serve index.html
       if (url === "/" || url === "/index") {
-        targetFile = "index.html";
-      } else if (!url.includes(".")) {
-        targetFile = `${url.slice(1)}.html`;
+        return res.sendFile(path.join(__dirname, "index.html"));
       }
 
-      if (targetFile) {
-        const filePath = path.resolve(__dirname, targetFile);
-        try {
-          let html = await fs.promises.readFile(filePath, "utf-8");
-          // Transform the HTML through Vite to handle imports/styles
-          html = await vite.transformIndexHtml(req.originalUrl, html);
-          return res.status(200).set({ "Content-Type": "text/html" }).end(html);
-        } catch (e) {
-          // If file doesn't exist, let it fall through
-          next();
-        }
-      } else {
+      // Try serving the file as .html
+      const possibleFile = path.join(__dirname, `${url}.html`);
+      try {
+        res.sendFile(possibleFile, (err) => {
+          if (err) {
+            // If not found, let it go to 404 or other handlers
+            next();
+          }
+        });
+      } catch (e) {
         next();
       }
     });
@@ -53,23 +45,9 @@ async function startServer() {
   } else {
     // Production setup
     const distPath = path.join(process.cwd(), "dist");
-    
-    // Serve static files first
     app.use(express.static(distPath, { extensions: ["html"] }));
     
-    // Fallback for clean URLs manually if extensions fails
     app.get("*", (req, res) => {
-      const url = req.path;
-      if (url === "/" || url === "/index") {
-        return res.sendFile(path.join(distPath, "index.html"));
-      }
-      
-      const possibleFile = path.join(distPath, `${url}.html`);
-      if (fs.existsSync(possibleFile)) {
-        return res.sendFile(possibleFile);
-      }
-
-      // If it's a known route but file not found, or just fallback to index
       res.sendFile(path.join(distPath, "index.html"));
     });
   }
