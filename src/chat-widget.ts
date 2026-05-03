@@ -233,7 +233,7 @@ import { GoogleGenAI } from "@google/genai";
     const chatMessages = document.getElementById('chat-messages') as HTMLDivElement;
 
     const chat = ai.chats.create({
-        model: "gemini-3-flash-preview",
+        model: "gemini-2.0-flash",
         config: {
             systemInstruction: SYSTEM_INSTRUCTION
         }
